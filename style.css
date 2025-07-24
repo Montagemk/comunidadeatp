@@ -1,12 +1,21 @@
+/* Reset Básico para melhor controle de CSS */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Para rolagem suave do JavaScript */
+}
+
 /* Importação de Fontes do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
 
-/* Estilos Globais e Reset */
+/* Estilos Globais */
 body {
-    font-family: 'Poppins', sans-serif; /* Usando Poppins como fonte principal */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f2f5; /* Fundo mais claro e suave */
+    background-color: #f0f2f5;
     color: #333;
     line-height: 1.6;
     overflow-x: hidden; /* Evita rolagem horizontal indesejada */
@@ -21,75 +30,109 @@ body {
 
 /* Header */
 header {
-    background-color: #1a1a1a; /* Preto mais escuro para o cabeçalho */
+    background-color: #1a1a1a;
     color: #fff;
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: sticky; /* Fixa o header no topo ao rolar */
+    position: sticky;
     top: 0;
-    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+    z-index: 1000;
 }
 
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite quebrar linha em mobile */
 }
 
 .logo {
     margin: 0;
     font-size: 2.2em;
-    color: #00e676; /* Verde neon para o logo, destacando */
+    color: #00e676;
     font-weight: 700;
     text-shadow: 1px 1px 3px rgba(0,230,118,0.5);
 }
 
-header nav ul {
+/* Navegação Principal */
+#main-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
 }
 
-header nav ul li {
+#main-nav ul li {
     margin-left: 30px;
 }
 
-header nav ul li a {
+#main-nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease, transform 0.2s ease;
     position: relative;
-    padding-bottom: 5px; /* Espaço para o underline */
+    padding-bottom: 5px;
 }
 
-header nav ul li a::after {
+#main-nav ul li a::after {
     content: '';
     position: absolute;
     width: 0;
     height: 3px;
-    background-color: #00e676; /* Underline verde neon */
+    background-color: #00e676;
     left: 0;
     bottom: 0;
     transition: width 0.3s ease;
 }
 
-header nav ul li a:hover::after {
+#main-nav ul li a:hover::after {
     width: 100%;
 }
 
-header nav ul li a:hover {
+#main-nav ul li a:hover {
     color: #00e676;
     transform: translateY(-2px);
 }
 
+/* Botão de Menu Mobile (Hamburger) */
+.menu-toggle {
+    display: none; /* Escondido por padrão em desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+    z-index: 1001; /* Garante que o botão esteja acima do menu */
+}
+
+.hamburger {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #00e676;
+    margin: 6px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação do Hambúrguer para X quando ativo */
+.menu-toggle.active .hamburger:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .hamburger:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
 /* Seções Gerais */
 section {
-    padding: 80px 0; /* Mais espaçamento para seções */
+    padding: 80px 0;
     text-align: center;
-    position: relative; /* Para usar overlays ou backgrounds com absolute */
+    position: relative;
 }
 
 .section-title {
@@ -116,7 +159,7 @@ section {
 }
 
 .section-dark .section-title, .section-dark h3, .section-dark p, .section-dark .subtitle, .section-dark ul li, .section-dark .video-call-to-action {
-    color: #fff; /* Garante texto branco em seções escuras */
+    color: #fff;
 }
 
 .section-light {
@@ -129,7 +172,7 @@ section {
     color: #333;
 }
 
-/* Overlay para imagens de fundo */
+/* Overlay para imagens de fundo em seções com background-image no HTML */
 .overlay {
     position: absolute;
     top: 0;
@@ -145,17 +188,16 @@ section {
     z-index: 2;
 }
 
-
-/* Seção Hero (Banner Principal) */
+/* Seção Hero */
 .hero-section {
     position: relative;
-    height: 600px; /* Altura do hero */
+    height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-    overflow: hidden; /* Para garantir que o background não vaze */
+    overflow: hidden;
 }
 
 .hero-background {
@@ -167,16 +209,16 @@ section {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 1; /* Fica por trás do conteúdo */
-    filter: brightness(0.7); /* Escurece um pouco a imagem para o texto sobressair */
-    animation: fadeIn 2s ease-out; /* Animação suave */
+    z-index: 1;
+    filter: brightness(0.7);
+    animation: fadeIn 2s ease-out;
 }
 
 .hero-section .container {
     position: relative;
-    z-index: 2; /* Fica por cima do background */
+    z-index: 2;
     text-align: center;
-    padding-top: 50px; /* Espaçamento extra para centralizar melhor */
+    padding-top: 50px;
 }
 
 .hero-section h2 {
@@ -192,27 +234,27 @@ section {
     font-size: 2em;
     margin-bottom: 20px;
     font-weight: 600;
-    color: #00e676; /* Cor de destaque */
+    color: #00e676;
 }
 
 .hero-section p {
     font-size: 1.3em;
-    margin-bottom: 20px; /* Reduzido para múltiplos parágrafos */
+    margin-bottom: 20px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     font-weight: 400;
 }
-.hero-section p:last-of-type { /* Espaçamento maior para o último p antes do botão */
+.hero-section p:last-of-type {
     margin-bottom: 40px;
 }
 
 /* Botões */
 .btn-primary, .btn-secondary {
     display: inline-block;
-    padding: 18px 35px; /* Botões maiores */
+    padding: 18px 35px;
     text-decoration: none;
-    border-radius: 8px; /* Cantos mais arredondados */
+    border-radius: 8px;
     font-size: 1.2em;
     font-weight: 700;
     transition: all 0.3s ease;
@@ -222,27 +264,27 @@ section {
 }
 
 .btn-primary {
-    background-color: #00e676; /* Verde neon vibrante */
-    color: #1a1a1a; /* Texto escuro no botão claro */
+    background-color: #00e676;
+    color: #1a1a1a;
     border: 2px solid #00e676;
 }
 
 .btn-primary:hover {
-    background-color: #00b35c; /* Verde mais escuro no hover */
+    background-color: #00b35c;
     color: #fff;
     border-color: #00b35c;
-    transform: translateY(-3px); /* Efeito de elevação */
+    transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
 .btn-secondary {
-    background-color: #333; /* Fundo escuro para botões secundários */
-    color: #00e676; /* Texto verde neon */
+    background-color: #333;
+    color: #00e676;
     border: 2px solid #00e676;
 }
 
 .btn-secondary:hover {
-    background-color: #00e676; /* Inverte as cores no hover */
+    background-color: #00e676;
     color: #1a1a1a;
     border-color: #00e676;
     transform: translateY(-3px);
@@ -255,13 +297,13 @@ section {
     margin-top: 30px;
 }
 
-/* Seção Vídeo Marketing (Nova Seção de Vídeo) */
+/* Seção Vídeo Marketing */
 #video-marketing .video-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
-    max-width: 900px; /* Limita a largura do vídeo */
+    max-width: 900px;
     margin: 40px auto;
     background: #000;
     border-radius: 10px;
@@ -280,11 +322,11 @@ section {
 #video-marketing .video-call-to-action {
     font-size: 1.3em;
     margin-top: 30px;
-    color: #fff; /* Texto branco para fundo escuro */
+    color: #fff;
     font-weight: 600;
 }
 
-/* Seção Sobre Comunidade (texto introdutório) */
+/* Seção Sobre Comunidade */
 .advantages-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -298,7 +340,7 @@ section {
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    border-left: 5px solid #00e676; /* Barra lateral verde */
+    border-left: 5px solid #00e676;
 }
 
 /* Seção O Que Você Vai Encontrar (features) */
@@ -310,11 +352,11 @@ section {
 }
 
 .feature-card {
-    background-color: #2a2a2a; /* Fundo mais escuro para cards */
+    background-color: #2a2a2a;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border: 1px solid #00e676; /* Borda sutil verde neon */
+    border: 1px solid #00e676;
 }
 
 .feature-card h3 {
@@ -353,21 +395,21 @@ section {
 }
 
 .audience-card ul {
-    list-style: none; /* Remove bullet points padrão */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .audience-card ul li {
     position: relative;
-    padding-left: 30px; /* Espaço para o ícone customizado */
+    padding-left: 30px;
     margin-bottom: 15px;
     font-size: 1.1em;
     color: #444;
 }
 
 .audience-card ul li::before {
-    content: '✅'; /* Ícone de check */
+    content: '✅';
     position: absolute;
     left: 0;
     top: 0;
@@ -387,26 +429,26 @@ section {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 12px;
-    overflow: hidden; /* Garante que a imagem respeite o border-radius */
+    overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-card:hover {
-    transform: translateY(-8px); /* Elevação suave no hover */
+    transform: translateY(-8px);
     box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
 .course-card img {
     width: 100%;
-    height: 200px; /* Altura fixa para as imagens dos cursos */
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    height: 200px;
+    object-fit: cover;
     display: block;
     border-bottom: 1px solid #eee;
 }
 
-.course-card .course-content {
+.course-card .course-content { /* Ajuste se o conteúdo do card estiver encapsulado */
     padding: 25px;
 }
 
@@ -415,18 +457,18 @@ section {
     margin-top: 0;
     margin-bottom: 10px;
     color: #1a1a1a;
-    min-height: 2.4em; /* Ajuda a manter o alinhamento se os títulos tiverem tamanhos diferentes */
+    min-height: 2.4em;
 }
 
 .course-card p {
     font-size: 1em;
     margin-bottom: 20px;
     color: #555;
-    min-height: 4.5em; /* Garante espaço para a descrição */
+    min-height: 4.5em;
 }
 
 .course-card .btn-secondary {
-    width: calc(100% - 4px); /* Ajusta para a borda */
+    width: calc(100% - 4px);
     text-align: center;
     margin-top: 15px;
     font-size: 1em;
@@ -452,8 +494,8 @@ section {
 
 /* Convite Especial */
 #convite-especial {
-    background-color: #e6f7ff; /* Um azul claro suave */
-    border-bottom: 5px solid #007bff; /* Borda inferior de destaque */
+    background-color: #e6f7ff;
+    border-bottom: 5px solid #007bff;
 }
 
 #convite-especial p {
@@ -476,7 +518,7 @@ section {
 }
 
 .niche-item {
-    background-color: #fff; /* Fundo branco para os cards de nicho */
+    background-color: #fff;
     color: #1a1a1a;
     padding: 15px;
     border-radius: 8px;
@@ -497,8 +539,8 @@ section {
 }
 
 .niche-item img {
-    width: 100%; /* Imagem preenche o card */
-    max-height: 120px; /* Altura máxima para as imagens dos nichos */
+    width: 100%;
+    max-height: 120px;
     object-fit: cover;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -511,8 +553,8 @@ section {
 }
 
 .niche-item .niche-link {
-    font-size: 0.85em; /* Texto menor para o link */
-    color: #007bff; /* Azul para o link */
+    font-size: 0.85em;
+    color: #007bff;
     text-decoration: none;
     margin-top: 8px;
     transition: color 0.3s ease;
@@ -523,10 +565,9 @@ section {
     text-decoration: underline;
 }
 
-
 /* Garantia */
 #garantia {
-    background-color: #333; /* Fundo escuro */
+    background-color: #333;
     color: #fff;
 }
 
@@ -549,7 +590,7 @@ section {
 
 .yonnathan-content {
     display: flex;
-    flex-direction: row; /* Imagem à esquerda, texto à direita */
+    flex-direction: row;
     align-items: center;
     gap: 50px;
     max-width: 1000px;
@@ -558,7 +599,7 @@ section {
 }
 
 .yonnathan-image {
-    flex: 0 0 40%; /* Ocupa 40% da largura */
+    flex: 0 0 40%;
     text-align: center;
 }
 
@@ -570,28 +611,28 @@ section {
 }
 
 .yonnathan-text {
-    flex: 1; /* Ocupa o restante do espaço */
+    flex: 1;
 }
 
 .yonnathan-text .section-title {
     text-align: left;
-    color: #fff; /* Texto branco para fundo escuro com overlay */
+    color: #fff;
     font-size: 2.5em;
     margin-bottom: 15px;
 }
 
 .yonnathan-text p {
     font-size: 1.1em;
-    color: #eee; /* Texto mais claro para fundo escuro com overlay */
+    color: #eee;
     margin-bottom: 15px;
     line-height: 1.7;
 }
 
-
 /* Seção de Depoimentos */
 .depoimentos-section {
     position: relative;
-    background-image: url('imagens/fundo_autoridade.png'); /* Sua imagem de fundo para autoridade/depoimentos */
+    /* Background definido via JS ou no HTML se for estático */
+    background-image: url('imagens/fundo_autoridade.png'); /* Certifique-se de ter essa imagem */
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Efeito parallax */
@@ -606,7 +647,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6); /* Overlay escuro */
+    background-color: rgba(0,0,0,0.6);
     z-index: 1;
 }
 
@@ -627,13 +668,13 @@ section {
 }
 
 .depoimento-card {
-    background-color: rgba(255,255,255,0.95); /* Fundo quase branco, semi-transparente */
+    background-color: rgba(255,255,255,0.95);
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     text-align: center;
     font-style: italic;
-    color: #333; /* Texto escuro */
+    color: #333;
     border-left: 5px solid #00e676;
 }
 
@@ -659,7 +700,7 @@ footer {
 }
 
 footer a {
-    color: #00e676; /* Links em verde neon */
+    color: #00e676;
     text-decoration: none;
     margin: 0 10px;
     transition: color 0.3s ease;
@@ -669,10 +710,111 @@ footer a:hover {
     color: #fff;
 }
 
-/* Responsividade */
-@media (max-width: 992px) {
+
+/* === RESPONSIVIDADE COMPLETA === */
+@media (max-width: 768px) {
+    /* Header e Menu Toggle */
+    header .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block; /* Mostra o botão de hambúrguer */
+    }
+
+    #main-nav {
+        display: flex; /* Começa como flex para transição, mas escondido visualmente */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Posiciona abaixo do header */
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        padding: 20px 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transição suave */
+        
+        /* Estado inicial: escondido para cima e invisível */
+        transform: translateY(-100%); 
+        opacity: 0;
+        pointer-events: none; /* Desabilita cliques quando escondido */
+    }
+
+    #main-nav.active {
+        transform: translateY(0); /* Desliza para baixo */
+        opacity: 1; /* Torna visível */
+        pointer-events: all; /* Habilita cliques */
+    }
+
+    #main-nav ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    #main-nav ul li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    #main-nav ul li a {
+        padding: 10px 0;
+        display: block;
+        font-size: 1.1em;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    #main-nav ul li:last-child a {
+        border-bottom: none;
+    }
+
+    /* Ajustes Gerais para Telas Menores */
+    .section-title {
+        font-size: 2em;
+    }
+    .section-subtitle {
+        font-size: 1em;
+    }
+    .hero-section {
+        height: auto; /* Altura flexível */
+        padding: 80px 0 40px 0; /* Padding ajustado */
+    }
+    .hero-section h2 {
+        font-size: 2.5em;
+    }
+    .hero-section h3 {
+        font-size: 1.5em;
+    }
+    .hero-section p {
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+    .hero-section p:last-of-type {
+        margin-bottom: 30px;
+    }
+    .large-btn {
+        padding: 15px 30px;
+        font-size: 1.2em;
+    }
+
+    /* Grids se tornam colunas únicas */
+    .advantages-grid, .features-grid, .audience-grid, .course-grid, .niches-grid, .depoimento-grid {
+        grid-template-columns: 1fr;
+        gap: 30px; /* Espaçamento entre itens */
+    }
+
+    .niche-item {
+        font-size: 1em;
+    }
+    .niche-item img {
+        max-height: 100px;
+    }
+
+    /* Yonnathan Vinasco em coluna */
     .yonnathan-content {
-        flex-direction: column; /* Coluna em telas menores */
+        flex-direction: column;
         text-align: center;
     }
     .yonnathan-image {
@@ -682,74 +824,11 @@ footer a:hover {
     .yonnathan-text .section-title {
         text-align: center;
     }
-}
-
-@media (max-width: 768px) {
-    header .container {
-        flex-direction: column;
+    .yonnathan-text p {
+        color: #fff; /* Garantindo texto branco no fundo escuro */
     }
-
-    header nav ul {
-        margin-top: 20px;
-        flex-direction: column;
-        align-items: center;
-        width: 100%; /* Ocupa toda a largura */
-    }
-
-    header nav ul li {
-        margin: 10px 0; /* Mais espaço entre os itens na vertical */
-    }
-
-    .logo {
-        font-size: 1.8em;
-    }
-
-    .hero-section {
-        height: auto;
-        padding: 100px 0 50px 0; /* Ajuste o padding para telas menores */
-    }
-
-    .hero-section h2 {
-        font-size: 2.5em;
-    }
-
-    .hero-section h3 {
-        font-size: 1.5em;
-    }
-
-    .hero-section p {
-        font-size: 1em;
-    }
-
-    .btn-primary, .btn-secondary {
-        padding: 15px 25px;
-        font-size: 1em;
-    }
-
-    .large-btn {
-        padding: 18px 35px;
-        font-size: 1.2em;
-    }
-
-    .section-title {
-        font-size: 2em;
-    }
-
-    .section-subtitle {
-        font-size: 1em;
-    }
-
-    .audience-grid, .course-grid, .features-grid, .advantages-grid, .niches-grid, .depoimento-grid { /* Adicionado depoimento-grid aqui */
-        grid-template-columns: 1fr; /* Coluna única em telas pequenas */
-        gap: 25px;
-    }
-
-    .course-card img {
-        height: 180px; /* Ajusta altura da imagem do curso */
-    }
-
-    .niche-item {
-        font-size: 1.1em;
+    .depoimento-card {
+        padding: 25px;
     }
 }
 
@@ -757,9 +836,22 @@ footer a:hover {
     .hero-section h2 {
         font-size: 1.8em;
     }
-
     .hero-section h3 {
         font-size: 1.2em;
+    }
+    .section-title {
+        font-size: 1.8em;
+    }
+    .btn-primary, .btn-secondary {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    .large-btn {
+        padding: 15px 25px;
+        font-size: 1em;
+    }
+    header nav ul li {
+        margin: 10px 0;
     }
 }
 
