@@ -297,36 +297,33 @@ section {
     margin-top: 30px;
 }
 
-/* Seção Vídeo Marketing - AJUSTES AQUI */
+/* Seção Vídeo Marketing - AJUSTES CRUCIAIS AQUI */
 #video-marketing .video-wrapper {
     position: relative;
-    /* Antes: padding-bottom: 56.25%; height: 0; */
-    padding-bottom: 56.25%; /* Proporção 16:9 (altura com base na largura para responsividade) */
-    height: 0; /* Ajuda a forçar o padding-bottom a definir a altura */
+    width: 100%; /* Ocupa a largura total do contêiner */
+    /* REMOVIDO: padding-bottom: 56.25%; - A altura agora é definida pelo JavaScript */
+    /* REMOVIDO: height: 0; - A altura agora é definida pelo JavaScript */
     overflow: hidden;
-    max-width: 900px;
+    max-width: 900px; /* Limite de largura para o vídeo */
     margin: 40px auto;
     background: #000;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    min-height: 200px; /* Altura mínima de fallback caso JS não carregue */
+    transition: height 0.3s ease; /* Transição suave na altura ajustada pelo JS */
 }
 
-#video-marketing .video-wrapper video { /* Altere de iframe para video */
+#video-marketing .video-wrapper video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
-    object-fit: cover; /* Ajusta o vídeo para cobrir todo o espaço, pode cortar bordas */
-    /* Se preferir que o vídeo NUNCA seja cortado, mas possa ter barras pretas, use:
-       object-fit: contain; */
+    /* Use 'contain' para garantir que o vídeo inteiro seja visível.
+       O JS ajustará o wrapper para que o 'contain' preencha o espaço sem barras pretas. */
+    object-fit: contain; 
 }
-
-/* Remover estilo de iframe antigo, se houver */
-/* #video-marketing .video-wrapper iframe {
-   display: none;
-} */
 
 
 #video-marketing .video-call-to-action {
