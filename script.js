@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seleciona os elementos do menu
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.getElementById('main-nav');
-    const navLinks = mainNav ? mainNav.querySelectorAll('a') : []; // Seleciona todos os links da navegação
+    // Usa uma verificação para garantir que mainNav exista antes de tentar selecionar os links
+    const navLinks = mainNav ? mainNav.querySelectorAll('a') : []; 
 
-    // Verifica se os elementos principais existem antes de adicionar event listeners
+    // Verifica se os elementos principais do menu existem antes de adicionar event listeners
     if (menuToggle && mainNav) {
         // --- Funcionalidade do Menu Responsivo (Toggle) ---
         menuToggle.addEventListener('click', function() {
@@ -37,6 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.body.classList.remove('no-scroll'); // Remove o no-scroll se o menu estiver aberto e a tela for desktop
                 }
             }
+            // Chama o ajuste do vídeo também ao redimensionar
+            adjustVideoWrapperSize(); 
         });
     }
 
@@ -51,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (targetElement) {
                 // Calcula a posição para scrollar, ajustando para a altura do header fixo
-                const headerOffset = document.querySelector('header').offsetHeight; // Pega a altura do seu header
+                const header = document.querySelector('header');
+                const headerOffset = header ? header.offsetHeight : 0; // Pega a altura do seu header, ou 0 se não encontrar
                 const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
                 const offsetPosition = elementPosition - headerOffset;
 
@@ -63,4 +67,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
+    // --- NOVA FUNCIONALIDADE: Ajuste Responsivo do Vídeo ---
+    const videoElement = document.querySelector('#video-marketing .responsive-video');
+    const videoWrapper = document.querySelector('#video-marketing .video-wrapper');
+
+    if (videoElement && videoWrapper) {
+        // Função para ajustar o tamanho do wrapper com base na proporção do vídeo
+        function adjustVideoWrapperSize() {
+            // Verifica se o vídeo já carregou metadados para ter as dimensões (videoWidth/videoHeight)
+            // readyState 2 (HAVE_CURRENT_DATA) ou superior garante que esses dados estão disponíveis
+            if (videoElement.readyState >= 2) { 
+                const videoRatio = videoElement.videoWidth / videoElement.videoHeight;
+                const wrapperWidth = videoWrapper.offsetWidth; // Largura atual do contêiner do vídeo
+
+                // Calcula a altura ideal para o wrapper para manter a proporção exata do vídeo
+                const calculatedHeight = wrapperWidth / videoRatio;
+                videoWrapper.style.height = `${calculatedHeight}px`; // Define a altura exata
+                videoWrapper.style.paddingBottom = '0'; // Garante que padding-bottom não interfira se foi definido em CSS
+            } else {
+                // Se metadados ainda não carregaram, tenta novamente após um pequeno atraso.
+                // Isso ajuda a lidar com o carregamento assíncrono do vídeo.
+                setTimeout(adjustVideoWrapperSize, 100); 
+            }
+        }
+
+        // Adiciona um listener para quando os metadados do vídeo forem carregados.
+        // Isso é crucial para que as dimensões do vídeo estejam disponíveis.
+        videoElement.addEventListener('loadedmetadata', adjustVideoWrapperSize);
+
+        // Adiciona um listener para quando a janela for redimensionada.
+        // Isso garante que o vídeo se ajuste se o tamanho da tela mudar.
+        window.addEventListener('resize', adjustVideoWrapperSize);
+
+        // Chama a função uma vez ao carregar o DOM.
+        // Isso é importante caso o vídeo já esteja 'pronto' quando o script é executado.
+        adjustVideoWrapperSize(); 
+    }
 });
