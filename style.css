@@ -297,11 +297,12 @@ section {
     margin-top: 30px;
 }
 
-/* Seção Vídeo Marketing */
+/* Seção Vídeo Marketing - AJUSTES AQUI */
 #video-marketing .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
+    /* Antes: padding-bottom: 56.25%; height: 0; */
+    padding-bottom: 56.25%; /* Proporção 16:9 (altura com base na largura para responsividade) */
+    height: 0; /* Ajuda a forçar o padding-bottom a definir a altura */
     overflow: hidden;
     max-width: 900px;
     margin: 40px auto;
@@ -310,14 +311,23 @@ section {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-#video-marketing .video-wrapper iframe {
+#video-marketing .video-wrapper video { /* Altere de iframe para video */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    object-fit: cover; /* Ajusta o vídeo para cobrir todo o espaço, pode cortar bordas */
+    /* Se preferir que o vídeo NUNCA seja cortado, mas possa ter barras pretas, use:
+       object-fit: contain; */
 }
+
+/* Remover estilo de iframe antigo, se houver */
+/* #video-marketing .video-wrapper iframe {
+   display: none;
+} */
+
 
 #video-marketing .video-call-to-action {
     font-size: 1.3em;
