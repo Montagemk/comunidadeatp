@@ -6,4 +6,10 @@
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
    </url>
+   <url>
+      <loc>https://comunidadeatp.store/politica-de-privacidade.html</loc>
+      <lastmod>2025-07-26T16:18:40-03:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
 </urlset>
