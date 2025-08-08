@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Funcionalidade do Menu Responsivo (Toggle) ---
+    // --- Lógica do Menu Responsivo (Toggle) ---
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.getElementById('main-nav');
     const navLinks = mainNav ? mainNav.querySelectorAll('a') : [];
@@ -29,11 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.body.classList.remove('no-scroll');
                 }
             }
+            // Chama o ajuste do vídeo também ao redimensionar
             adjustVideoWrapperSize();
         });
     }
 
-    // --- Funcionalidade de Rolagem Suave (Smooth Scroll) ---
+    // --- Lógica de Rolagem Suave (Smooth Scroll) ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Funcionalidade de Ajuste Responsivo do Vídeo ---
+    // --- Lógica de Ajuste Responsivo do Vídeo ---
     const videoElement = document.querySelector('#video-marketing .responsive-video');
     const videoWrapper = document.querySelector('#video-marketing .video-wrapper');
 
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- API CHATBOT (Código corrigido e completo) ---
+    // --- Lógica Completa do CHATBOT ---
     const toggleButton = document.getElementById('chatbot-toggle-button');
     const chatbotWindow = document.getElementById('chatbot-window');
     const sendButton = document.getElementById('chat-send-button');
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // **A SUA URL DO CHATBOT NO RENDER**
     // Lembre-se de usar o endpoint da API no final da URL
-    const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhooks/rest/webhook';
+    const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
 
     if (toggleButton && chatbotWindow) {
         toggleButton.addEventListener('click', function() {
@@ -116,19 +117,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                sender: 'user',
+                sender: 'user_site',
                 message: messageText
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na rede ou no servidor');
+            }
+            return response.json();
+        })
         .then(data => {
-            if (data && data.length > 0) {
+            if (data && data.length > 0 && data[0].text) {
                 displayMessage(data[0].text, 'bot-message');
+            } else {
+                displayMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'bot-message');
             }
         })
         .catch(error => {
             console.error('Erro ao comunicar com o chatbot:', error);
-            displayMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'bot-message');
+            displayMessage('Desculpe, ocorreu um erro na comunicação. Tente novamente mais tarde.', 'bot-message');
         });
     }
 
