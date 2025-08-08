@@ -95,6 +95,66 @@ header .container {
     transform: translateY(-2px);
 }
 
+/* CHATBOT CONFIG */
+
+/* Estilo para o botão flutuante */
+.chatbot-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    
+    /* Identidade visual - personalize aqui */
+    background-color: #28a745; /* Cor de fundo (verde) */
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.chatbot-button:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo para o texto do botão */
+.online-text {
+    /* Adicione um ponto ou ícone de online */
+}
+
+/* Estilo para a janela do chat (invisível por padrão) */
+.chatbot-window {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    z-index: 999;
+    width: 350px;
+    height: 450px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Classe para esconder a janela */
+.chatbot-window.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Estilo do iframe do chat */
+.chatbot-window iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 /* Botão de Menu Mobile (Hamburger) */
 .menu-toggle {
     display: none; /* Escondido por padrão em desktop */
