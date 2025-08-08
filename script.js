@@ -1,118 +1,142 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleciona os elementos do menu
+    // --- Funcionalidade do Menu Responsivo (Toggle) ---
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.getElementById('main-nav');
-    // Usa uma verificação para garantir que mainNav exista antes de tentar selecionar os links
-    const navLinks = mainNav ? mainNav.querySelectorAll('a') : []; 
+    const navLinks = mainNav ? mainNav.querySelectorAll('a') : [];
 
-    // Verifica se os elementos principais do menu existem antes de adicionar event listeners
     if (menuToggle && mainNav) {
-        // --- Funcionalidade do Menu Responsivo (Toggle) ---
         menuToggle.addEventListener('click', function() {
-            mainNav.classList.toggle('active'); // Adiciona/remove a classe 'active' na navegação
-            menuToggle.classList.toggle('active'); // Adiciona/remove a classe 'active' no botão de hambúrguer para animação
-            // Adiciona/remove a classe 'no-scroll' ao body para evitar rolagem de fundo quando o menu está aberto
-            document.body.classList.toggle('no-scroll'); 
+            mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
         });
 
-
-//  --- API CHATBOT ---
-
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleButton = document.getElementById('chatbot-toggle-button');
-    const chatbotWindow = document.getElementById('chatbot-window');
-
-    toggleButton.addEventListener('click', function() {
-        chatbotWindow.classList.toggle('hidden');
-    });
-});
-        // --- Fechar Menu ao Clicar em Link ou Redimensionar ---
-
-        // Fechar o menu ao clicar em um item de navegação (para links âncora)
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
                 if (mainNav.classList.contains('active')) {
                     mainNav.classList.remove('active');
                     menuToggle.classList.remove('active');
-                    document.body.classList.remove('no-scroll'); // Remove o no-scroll ao fechar
+                    document.body.classList.remove('no-scroll');
                 }
             });
         });
 
-        // Fechar o menu e redefinir o botão se a tela for redimensionada para desktop
         window.addEventListener('resize', function() {
-            // Verifica se a largura da tela é maior que o breakpoint mobile (768px definido no CSS)
             if (window.innerWidth > 768) {
                 if (mainNav.classList.contains('active')) {
                     mainNav.classList.remove('active');
                     menuToggle.classList.remove('active');
-                    document.body.classList.remove('no-scroll'); // Remove o no-scroll se o menu estiver aberto e a tela for desktop
+                    document.body.classList.remove('no-scroll');
                 }
             }
-            // Chama o ajuste do vídeo também ao redimensionar
-            adjustVideoWrapperSize(); 
+            adjustVideoWrapperSize();
         });
     }
 
     // --- Funcionalidade de Rolagem Suave (Smooth Scroll) ---
-    // Esta parte é para todos os links âncora na página, não apenas no menu
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Previne o comportamento padrão do link
-
-            const targetId = this.getAttribute('href'); // Pega o ID da seção alvo
-            const targetElement = document.querySelector(targetId); // Seleciona o elemento alvo
-
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                // Calcula a posição para scrollar, ajustando para a altura do header fixo
                 const header = document.querySelector('header');
-                const headerOffset = header ? header.offsetHeight : 0; // Pega a altura do seu header, ou 0 se não encontrar
+                const headerOffset = header ? header.offsetHeight : 0;
                 const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
                 const offsetPosition = elementPosition - headerOffset;
-
                 window.scrollTo({
                     top: offsetPosition,
-                    behavior: "smooth" // Rolagem suave
+                    behavior: "smooth"
                 });
             }
         });
     });
 
-
-    // --- NOVA FUNCIONALIDADE: Ajuste Responsivo do Vídeo ---
+    // --- Funcionalidade de Ajuste Responsivo do Vídeo ---
     const videoElement = document.querySelector('#video-marketing .responsive-video');
     const videoWrapper = document.querySelector('#video-marketing .video-wrapper');
 
     if (videoElement && videoWrapper) {
-        // Função para ajustar o tamanho do wrapper com base na proporção do vídeo
         function adjustVideoWrapperSize() {
-            // Verifica se o vídeo já carregou metadados para ter as dimensões (videoWidth/videoHeight)
-            // readyState 2 (HAVE_CURRENT_DATA) ou superior garante que esses dados estão disponíveis
-            if (videoElement.readyState >= 2) { 
+            if (videoElement.readyState >= 2) {
                 const videoRatio = videoElement.videoWidth / videoElement.videoHeight;
-                const wrapperWidth = videoWrapper.offsetWidth; // Largura atual do contêiner do vídeo
-
-                // Calcula a altura ideal para o wrapper para manter a proporção exata do vídeo
+                const wrapperWidth = videoWrapper.offsetWidth;
                 const calculatedHeight = wrapperWidth / videoRatio;
-                videoWrapper.style.height = `${calculatedHeight}px`; // Define a altura exata
-                videoWrapper.style.paddingBottom = '0'; // Garante que padding-bottom não interfira se foi definido em CSS
+                videoWrapper.style.height = `${calculatedHeight}px`;
+                videoWrapper.style.paddingBottom = '0';
             } else {
-                // Se metadados ainda não carregaram, tenta novamente após um pequeno atraso.
-                // Isso ajuda a lidar com o carregamento assíncrono do vídeo.
-                setTimeout(adjustVideoWrapperSize, 100); 
+                setTimeout(adjustVideoWrapperSize, 100);
             }
         }
-
-        // Adiciona um listener para quando os metadados do vídeo forem carregados.
-        // Isso é crucial para que as dimensões do vídeo estejam disponíveis.
         videoElement.addEventListener('loadedmetadata', adjustVideoWrapperSize);
-
-        // Adiciona um listener para quando a janela for redimensionada.
-        // Isso garante que o vídeo se ajuste se o tamanho da tela mudar.
         window.addEventListener('resize', adjustVideoWrapperSize);
+        adjustVideoWrapperSize();
+    }
 
-        // Chama a função uma vez ao carregar o DOM.
-        // Isso é importante caso o vídeo já esteja 'pronto' quando o script é executado.
-        adjustVideoWrapperSize(); 
+
+    // --- API CHATBOT (Código corrigido e completo) ---
+    const toggleButton = document.getElementById('chatbot-toggle-button');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const sendButton = document.getElementById('chat-send-button');
+    const inputField = document.getElementById('chat-input-field');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // **A SUA URL DO CHATBOT NO RENDER**
+    // Lembre-se de usar o endpoint da API no final da URL
+    const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhooks/rest/webhook';
+
+    if (toggleButton && chatbotWindow) {
+        toggleButton.addEventListener('click', function() {
+            chatbotWindow.classList.toggle('hidden');
+        });
+    }
+
+    if (sendButton && inputField) {
+        sendButton.addEventListener('click', function() {
+            sendMessage();
+        });
+
+        inputField.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
+
+    function sendMessage() {
+        const messageText = inputField.value.trim();
+        if (messageText === '') return;
+
+        displayMessage(messageText, 'user-message');
+        inputField.value = '';
+
+        fetch(CHATBOT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: 'user',
+                message: messageText
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                displayMessage(data[0].text, 'bot-message');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao comunicar com o chatbot:', error);
+            displayMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'bot-message');
+        });
+    }
+
+    function displayMessage(text, type) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', type);
+        messageElement.textContent = text;
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 });
