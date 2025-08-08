@@ -275,8 +275,17 @@
     <button id="chatbot-toggle-button" class="chatbot-button">
         <span class="online-text">2 consultores online</span>
     </button>
+    
     <div id="chatbot-window" class="chatbot-window hidden">
-       <iframe src="https://atpchatbot.onrender.com/webhooks/rest/webhook" frameborder="0"></iframe>
+        <div class="chat-header">
+            Conversa com o consultor
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Digite sua mensagem...">
+            <button id="chat-send-button">Enviar</button>
+        </div>
     </div>
 </div>
 
