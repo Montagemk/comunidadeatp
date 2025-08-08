@@ -15,6 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.toggle('no-scroll'); 
         });
 
+
+//  --- API CHATBOT ---
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('chatbot-toggle-button');
+    const chatbotWindow = document.getElementById('chatbot-window');
+
+    toggleButton.addEventListener('click', function() {
+        chatbotWindow.classList.toggle('hidden');
+    });
+});
         // --- Fechar Menu ao Clicar em Link ou Redimensionar ---
 
         // Fechar o menu ao clicar em um item de navegação (para links âncora)
