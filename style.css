@@ -96,14 +96,11 @@ header .container {
 }
 
 /* CHATBOT CONFIG */
-
-/* Estilo para o botão flutuante */
 .chatbot-button {
     position: fixed;
     right: 20px;
     bottom: 20px;
     z-index: 1000;
-    
     background-color: #00e676;
     color: #1a1a1a;
     font-family: 'Poppins', sans-serif;
@@ -116,13 +113,10 @@ header .container {
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
-
 .chatbot-button:hover {
     transform: scale(1.05);
     background-color: #00b35c;
 }
-
-/* Estilo para a janela do chat */
 .chatbot-window {
     position: fixed;
     right: 20px;
@@ -136,19 +130,15 @@ header .container {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
     display: flex;
-    flex-direction: column; /* Organiza o conteúdo em coluna */
+    flex-direction: column;
 }
-
-/* Classe para esconder a janela com uma transição suave */
 .chatbot-window.hidden {
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
 }
-
-/* Estilo para o cabeçalho da janela do chat */
 .chat-header {
-    background-color: #00e676; /* Cor de destaque do site */
+    background-color: #00e676;
     color: #1a1a1a;
     padding: 15px;
     border-top-left-radius: 10px;
@@ -157,18 +147,14 @@ header .container {
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-/* Estilo para a área de mensagens */
 .chat-messages {
-    flex-grow: 1; /* Ocupa o espaço restante */
-    overflow-y: auto; /* Adiciona barra de rolagem se houver muitas mensagens */
+    flex-grow: 1;
+    overflow-y: auto;
     padding: 15px;
     background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
 }
-
-/* Estilo para cada balão de mensagem */
 .chat-messages .message {
     margin-bottom: 10px;
     padding: 10px 15px;
@@ -176,31 +162,24 @@ header .container {
     max-width: 80%;
     line-height: 1.4;
 }
-
-/* Estilo para a mensagem do usuário */
 .chat-messages .user-message {
-    background-color: #00e676; /* Cor de destaque para o usuário */
+    background-color: #00e676;
     color: #1a1a1a;
-    align-self: flex-end; /* Alinha a mensagem à direita */
+    align-self: flex-end;
     margin-left: auto;
     border-bottom-right-radius: 5px;
 }
-
-/* Estilo para a mensagem da IA */
 .chat-messages .bot-message {
     background-color: #e9e9eb;
     color: #333;
-    align-self: flex-start; /* Alinha a mensagem à esquerda */
+    align-self: flex-start;
     border-bottom-left-radius: 5px;
 }
-
-/* Estilo para a área de input */
 .chat-input {
     display: flex;
     border-top: 1px solid #ccc;
     background-color: white;
 }
-
 #chat-input-field {
     flex-grow: 1;
     border: none;
@@ -208,7 +187,6 @@ header .container {
     font-size: 14px;
     outline: none;
 }
-
 #chat-send-button {
     background-color: #00e676;
     color: #1a1a1a;
@@ -218,22 +196,20 @@ header .container {
     font-size: 14px;
     transition: background-color 0.3s ease;
 }
-
 #chat-send-button:hover {
     background-color: #00b35c;
 }
 
 /* Botão de Menu Mobile (Hamburger) */
 .menu-toggle {
-    display: none; /* Escondido por padrão em desktop */
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
     padding: 10px;
     position: relative;
-    z-index: 1001; /* Garante que o botão esteja acima do menu */
+    z-index: 1001;
 }
-
 .hamburger {
     display: block;
     width: 30px;
@@ -242,25 +218,14 @@ header .container {
     margin: 6px 0;
     transition: all 0.3s ease-in-out;
 }
+.menu-toggle.active .hamburger:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-toggle.active .hamburger:nth-child(2) { opacity: 0; }
+.menu-toggle.active .hamburger:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-/* Animação do Hambúrguer para X quando ativo */
-.menu-toggle.active .hamburger:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
-
-.menu-toggle.active .hamburger:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.active .hamburger:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
-
-/* Seções Gerais (sem alterações) */
+/* Seções Gerais */
 section { padding: 80px 0; text-align: center; position: relative; }
 .section-title { font-size: 2.8em; margin-bottom: 25px; color: #1a1a1a; font-weight: 700; }
 .section-subtitle { font-size: 1.2em; margin-bottom: 40px; color: #555; }
-.section-padded { padding-top: 80px; padding-bottom: 80px; }
 .section-dark { background-color: #1a1a1a; color: #f0f2f5; }
 .section-dark .section-title, .section-dark h3, .section-dark p, .section-dark .subtitle, .section-dark ul li, .section-dark .video-call-to-action { color: #fff; }
 .section-light { background-color: #f0f2f5; color: #333; }
@@ -268,7 +233,7 @@ section { padding: 80px 0; text-align: center; position: relative; }
 .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1; }
 .content-above-overlay { position: relative; z-index: 2; }
 
-/* Seção Hero e Botões (sem alterações) */
+/* Seção Hero e Botões */
 .hero-section { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); overflow: hidden; }
 .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1; filter: brightness(0.7); animation: fadeIn 2s ease-out; }
 .hero-section .container { position: relative; z-index: 2; text-align: center; padding-top: 50px; }
@@ -283,16 +248,14 @@ section { padding: 80px 0; text-align: center; position: relative; }
 .btn-secondary:hover { background-color: #00e676; color: #1a1a1a; border-color: #00e676; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
 .large-btn { padding: 22px 45px; font-size: 1.5em; margin-top: 30px; }
 
-/* Outras seções (sem alterações) */
+/* Outras seções */
 #video-marketing .video-wrapper { position: relative; width: 100%; overflow: hidden; max-width: 900px; margin: 40px auto; background: #000; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); min-height: 200px; transition: height 0.3s ease; }
 #video-marketing .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: contain; }
-#video-marketing .video-call-to-action { font-size: 1.3em; margin-top: 30px; color: #fff; font-weight: 600; }
 .advantages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; text-align: left; }
 .advantages-grid div { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #00e676; }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
 .feature-card { background-color: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid #00e676; }
 .feature-card h3 { color: #00e676; font-size: 1.8em; margin-bottom: 15px; text-transform: uppercase; }
-.feature-card p { font-size: 1.05em; color: #bbb; }
 .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 40px; text-align: left; }
 .audience-card { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid #00e676; }
 .audience-card h3 { color: #1a1a1a; font-size: 2em; margin-bottom: 20px; }
@@ -304,76 +267,83 @@ section { padding: 80px 0; text-align: center; position: relative; }
 .course-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
 .course-card img { width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 1px solid #eee; }
 .course-card .course-content { padding: 25px; }
-.course-card h4 { font-size: 1.8em; margin-top: 0; margin-bottom: 10px; color: #1a1a1a; min-height: 2.4em; }
-.course-card p { font-size: 1em; margin-bottom: 20px; color: #555; min-height: 4.5em; }
-.course-card .btn-secondary { width: calc(100% - 4px); text-align: center; margin-top: 15px; font-size: 1em; padding: 12px 20px; border-radius: 6px; }
-.liberdade-financeira .points-list { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-.liberdade-financeira .points-list p { font-size: 1.3em; color: #fff; font-weight: 600; text-align: center; }
-#convite-especial { background-color: #e6f7ff; border-bottom: 5px solid #007bff; }
-#convite-especial p { font-size: 1.2em; color: #444; max-width: 800px; margin: 0 auto 30px auto; }
-#garantia { background-color: #333; color: #fff; }
-#garantia .section-title, #garantia p { color: #fff; }
-#garantia p { font-size: 1.2em; max-width: 900px; margin: 0 auto 20px auto; }
-#garantia p.subtitle { margin-bottom: 10px; }
-#yonnathan { /* Estilos restantes... */ }
 
-/* ================================================================== */
-/* ADIÇÃO: REGRAS PARA O MENU MOBILE E BLOQUEIO DE ROLAGEM            */
-/* ================================================================== */
-
-/* Esta classe será adicionada pelo JavaScript ao <body> quando o menu estiver aberto */
+/* REGRAS PARA O MENU MOBILE E BLOQUEIO DE ROLAGEM */
 body.menu-open {
-    overflow: hidden; /* Impede a rolagem da página inteira. */
+    overflow: hidden;
 }
-
-/* A Media Query abaixo aplica os estilos apenas em ecrãs com largura máxima de 768px */
 @media (max-width: 768px) {
-
-    /* 1. MOSTRAR O BOTÃO HAMBÚRGUER */
     .menu-toggle {
-        display: block; /* O botão, que estava escondido, agora aparece. */
+        display: block;
     }
-
-    /* 2. ESTILIZAR O MENU DE NAVEGAÇÃO PARA MOBILE */
     #main-nav {
-        position: fixed; /* Posição fixa para cobrir a tela */
+        position: fixed;
         top: 0;
         right: 0;
         width: 100%;
-        height: 100vh; /* 100% da altura da viewport (tela) */
-        background-color: rgba(26, 26, 26, 0.98); /* Fundo escuro semi-transparente */
-        backdrop-filter: blur(5px); /* Efeito de desfoque no conteúdo atrás */
-        
+        height: 100vh;
+        background-color: rgba(26, 26, 26, 0.98);
+        backdrop-filter: blur(5px);
         display: flex;
         justify-content: center;
         align-items: center;
-        
-        /* O menu começa fora da tela, à direita */
         transform: translateX(100%);
         transition: transform 0.4s ease-in-out;
-        
-        /* Garante que o menu não seja "clicável" quando escondido */
         visibility: hidden;
     }
-
-    /* 3. ESTADO ATIVO DO MENU (QUANDO O JS ADICIONA A CLASSE 'active') */
     #main-nav.active {
-        transform: translateX(0); /* O menu desliza para dentro da tela */
-        visibility: visible; /* Torna-se visível e "clicável" */
+        transform: translateX(0);
+        visibility: visible;
     }
-    
-    /* 4. AJUSTAR A LISTA E OS LINKS DENTRO DO MENU MOBILE */
     #main-nav ul {
-        flex-direction: column; /* Organiza os links em coluna */
+        flex-direction: column;
         text-align: center;
     }
-
     #main-nav ul li {
-        margin: 20px 0; /* Aumenta o espaçamento vertical entre os links */
-        margin-left: 0; /* Remove a margem da versão desktop */
+        margin: 20px 0;
+        margin-left: 0;
     }
-
     #main-nav ul li a {
-        font-size: 2em; /* Deixa os links maiores e mais fáceis de tocar */
+        font-size: 2em;
+    }
+}
+
+/* CORREÇÃO PARA OVERFLOW DA SEÇÃO YONNATHAN E CHATBOT */
+#yonnathan .yonnathan-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-align: left;
+}
+#yonnathan .yonnathan-image {
+    flex-shrink: 0;
+    width: 40%;
+    max-width: 400px;
+}
+#yonnathan img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+#yonnathan .yonnathan-text {
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    #yonnathan .yonnathan-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    #yonnathan .yonnathan-image {
+        width: 70%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .chatbot-window {
+        width: calc(100% - 40px);
+        bottom: 20px;
+        right: 20px;
     }
 }
