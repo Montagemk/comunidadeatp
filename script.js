@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chat-messages');
 
     // **A SUA URL DO CHATBOT NO RENDER**
-    // Lembre-se de usar o endpoint da API no final da URL
     const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
 
     if (toggleButton && chatbotWindow) {
@@ -123,14 +122,18 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             if (!response.ok) {
+                // A requisição falhou. Vamos logar o erro exato no console.
+                console.error('Erro na requisição, status:', response.status);
                 throw new Error('Erro na rede ou no servidor');
             }
             return response.json();
         })
         .then(data => {
+            // A resposta é processada aqui
             if (data && data.length > 0 && data[0].text) {
                 displayMessage(data[0].text, 'bot-message');
             } else {
+                // Se a resposta for vazia ou inesperada, exibe o erro
                 displayMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'bot-message');
             }
         })
