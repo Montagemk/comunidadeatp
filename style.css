@@ -1,3 +1,100 @@
+/* Reset Básico para melhor controle de CSS */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Para rolagem suave do JavaScript */
+}
+
+/* Importação de Fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+
+/* Estilos Globais */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Header */
+header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebrar linha em mobile */
+}
+
+.logo {
+    margin: 0;
+    font-size: 2.2em;
+    color: #00e676;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,230,118,0.5);
+}
+
+/* Navegação Principal */
+#main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+#main-nav ul li {
+    margin-left: 30px;
+}
+
+#main-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+#main-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background-color: #00e676;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+#main-nav ul li a:hover::after {
+    width: 100%;
+}
+
+#main-nav ul li a:hover {
+    color: #00e676;
+    transform: translateY(-2px);
+}
+
 /* CHATBOT CONFIG */
 
 /* Estilo para o botão flutuante */
@@ -7,9 +104,10 @@
     bottom: 20px;
     z-index: 1000;
     
-    background-color: #00e676; /* Cor de destaque do seu site */
-    color: #1a1a1a;
-    font-family: 'Poppins', sans-serif;
+    /* Identidade visual - personalize aqui */
+    background-color: #28a745; /* Cor de fundo (verde) */
+    color: white;
+    font-family: Arial, sans-serif;
     font-weight: bold;
     font-size: 16px;
     border: none;
@@ -17,20 +115,19 @@
     padding: 15px 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .chatbot-button:hover {
     transform: scale(1.05);
-    background-color: #00b35c; /* Cor mais escura no hover */
 }
 
-/* Estilo para o texto do botão (opcional) */
+/* Estilo para o texto do botão */
 .online-text {
-    /* Mantenha como está ou adicione um ícone */
+    /* Adicione um ponto ou ícone de online */
 }
 
-/* Estilo para a janela do chat */
+/* Estilo para a janela do chat (invisível por padrão) */
 .chatbot-window {
     position: fixed;
     right: 20px;
@@ -42,91 +139,458 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Classe para esconder a janela com uma transição suave */
+/* Classe para esconder a janela */
 .chatbot-window.hidden {
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
 }
 
-/* Estilo para o cabeçalho da janela do chat */
-.chat-header {
-    background-color: #00e676; /* Cor de destaque do site */
-    color: #1a1a1a;
-    padding: 15px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para a área de mensagens */
-.chat-messages {
-    flex-grow: 1; /* Ocupa o espaço restante */
-    overflow-y: auto; /* Adiciona barra de rolagem se houver muitas mensagens */
-    padding: 15px;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Estilo para cada balão de mensagem */
-.chat-messages .message {
-    margin-bottom: 10px;
-    padding: 10px 15px;
-    border-radius: 20px;
-    max-width: 80%;
-    line-height: 1.4;
-}
-
-/* Estilo para a mensagem do usuário */
-.chat-messages .user-message {
-    background-color: #00e676; /* Cor de destaque para o usuário */
-    color: #1a1a1a;
-    align-self: flex-end; /* Alinha a mensagem à direita */
-    margin-left: auto;
-    border-bottom-right-radius: 5px;
-}
-
-/* Estilo para a mensagem da IA */
-.chat-messages .bot-message {
-    background-color: #e9e9eb;
-    color: #333;
-    align-self: flex-start; /* Alinha a mensagem à esquerda */
-    border-bottom-left-radius: 5px;
-}
-
-/* Estilo para a área de input */
-.chat-input {
-    display: flex;
-    border-top: 1px solid #ccc;
-    background-color: white;
-}
-
-#chat-input-field {
-    flex-grow: 1;
+/* Estilo do iframe do chat */
+.chatbot-window iframe {
+    width: 100%;
+    height: 100%;
     border: none;
-    padding: 15px;
-    font-size: 14px;
-    outline: none;
 }
 
-#chat-send-button {
+/* Botão de Menu Mobile (Hamburger) */
+.menu-toggle {
+    display: none; /* Escondido por padrão em desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+    z-index: 1001; /* Garante que o botão esteja acima do menu */
+}
+
+.hamburger {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #00e676;
+    margin: 6px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação do Hambúrguer para X quando ativo */
+.menu-toggle.active .hamburger:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .hamburger:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Seções Gerais */
+section {
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+}
+
+.section-title {
+    font-size: 2.8em;
+    margin-bottom: 25px;
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.section-padded {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.section-dark {
+    background-color: #1a1a1a;
+    color: #f0f2f5;
+}
+
+.section-dark .section-title, .section-dark h3, .section-dark p, .section-dark .subtitle, .section-dark ul li, .section-dark .video-call-to-action {
+    color: #fff;
+}
+
+.section-light {
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+.section-white {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Overlay para imagens de fundo em seções com background-image no HTML */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Escurece a imagem de fundo */
+    z-index: 1;
+}
+
+.content-above-overlay {
+    position: relative;
+    z-index: 2;
+}
+
+/* Seção Hero */
+.hero-section {
+    position: relative;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    filter: brightness(0.7);
+    animation: fadeIn 2s ease-out;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.hero-section h2 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.hero-section h3 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #00e676;
+}
+
+.hero-section p {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+}
+.hero-section p:last-of-type {
+    margin-bottom: 40px;
+}
+
+/* Botões */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 18px 35px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
     background-color: #00e676;
     color: #1a1a1a;
-    border: none;
-    padding: 15px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+    border: 2px solid #00e676;
 }
 
-#chat-send-button:hover {
+.btn-primary:hover {
     background-color: #00b35c;
+    color: #fff;
+    border-color: #00b35c;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
+
+.btn-secondary {
+    background-color: #333;
+    color: #00e676;
+    border: 2px solid #00e676;
+}
+
+.btn-secondary:hover {
+    background-color: #00e676;
+    color: #1a1a1a;
+    border-color: #00e676;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.large-btn {
+    padding: 22px 45px;
+    font-size: 1.5em;
+    margin-top: 30px;
+}
+
+/* Seção Vídeo Marketing - AJUSTES CRUCIAIS AQUI */
+#video-marketing .video-wrapper {
+    position: relative;
+    width: 100%; /* Ocupa a largura total do contêiner */
+    /* REMOVIDO: padding-bottom: 56.25%; - A altura agora é definida pelo JavaScript */
+    /* REMOVIDO: height: 0; - A altura agora é definida pelo JavaScript */
+    overflow: hidden;
+    max-width: 900px; /* Limite de largura para o vídeo */
+    margin: 40px auto;
+    background: #000;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    min-height: 200px; /* Altura mínima de fallback caso JS não carregue */
+    transition: height 0.3s ease; /* Transição suave na altura ajustada pelo JS */
+}
+
+#video-marketing .video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* Use 'contain' para garantir que o vídeo inteiro seja visível.
+        O JS ajustará o wrapper para que o 'contain' preencha o espaço sem barras pretas. */
+    object-fit: contain;
+}
+
+
+#video-marketing .video-call-to-action {
+    font-size: 1.3em;
+    margin-top: 30px;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Seção Sobre Comunidade */
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.advantages-grid div {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-left: 5px solid #00e676;
+}
+
+/* Seção O Que Você Vai Encontrar (features) */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background-color: #2a2a2a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid #00e676;
+}
+
+.feature-card h3 {
+    color: #00e676;
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.feature-card p {
+    font-size: 1.05em;
+    color: #bbb;
+}
+
+/* Seção Para Quem (Audiência) */
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.audience-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-top: 5px solid #00e676;
+}
+
+.audience-card h3 {
+    color: #1a1a1a;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.audience-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.audience-card ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.audience-card ul li::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.2em;
+    color: #00e676;
+}
+
+/* Seção de Cursos */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.course-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #eee;
+}
+
+.course-card .course-content {
+    padding: 25px;
+}
+
+.course-card h4 {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+    min-height: 2.4em;
+}
+
+.course-card p {
+    font-size: 1em;
+    margin-bottom: 20px;
+    color: #555;
+    min-height: 4.5em;
+}
+
+.course-card .btn-secondary {
+    width: calc(100% - 4px);
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1em;
+    padding: 12px 20px;
+    border-radius: 6px;
+}
+
+/* Seção Liberdade Financeira */
+.liberdade-financeira .points-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.liberdade-financeira .points-list p {
+    font-size: 1.3em;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Convite Especial */
+#convite-especial {
+    background-color: #e6f7ff;
+    border-bottom: 5px solid #007bff;
+}
+
+#convite-especial p {
+    font-size: 1.2em;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+
+/* Garantia */
+#garantia {
+    background-color: #333;
+    color: #fff;
+}
+
+#garantia .section-title, #garantia p {
+    color: #fff;
+}
+#garantia p {
+    font-size: 1.2em;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+}
+#garantia p.subtitle {
+    margin-bottom: 10px;
+}
+
+/* Yonnathan Vinasco Section */
+#yonnathan {
+    /* Imagem de fundo aplicada no HTML,
