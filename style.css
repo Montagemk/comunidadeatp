@@ -104,10 +104,9 @@ header .container {
     bottom: 20px;
     z-index: 1000;
     
-    /* Identidade visual - personalize aqui */
-    background-color: #28a745; /* Cor de fundo (verde) */
-    color: white;
-    font-family: Arial, sans-serif;
+    background-color: #00e676;
+    color: #1a1a1a;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 16px;
     border: none;
@@ -115,19 +114,15 @@ header .container {
     padding: 15px 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .chatbot-button:hover {
     transform: scale(1.05);
+    background-color: #00b35c;
 }
 
-/* Estilo para o texto do botão */
-.online-text {
-    /* Adicione um ponto ou ícone de online */
-}
-
-/* Estilo para a janela do chat (invisível por padrão) */
+/* Estilo para a janela do chat */
 .chatbot-window {
     position: fixed;
     right: 20px;
@@ -139,20 +134,93 @@ header .container {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Organiza o conteúdo em coluna */
 }
 
-/* Classe para esconder a janela */
+/* Classe para esconder a janela com uma transição suave */
 .chatbot-window.hidden {
     opacity: 0;
     visibility: hidden;
+    transform: translateY(20px);
 }
 
-/* Estilo do iframe do chat */
-.chatbot-window iframe {
-    width: 100%;
-    height: 100%;
+/* Estilo para o cabeçalho da janela do chat */
+.chat-header {
+    background-color: #00e676; /* Cor de destaque do site */
+    color: #1a1a1a;
+    padding: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para a área de mensagens */
+.chat-messages {
+    flex-grow: 1; /* Ocupa o espaço restante */
+    overflow-y: auto; /* Adiciona barra de rolagem se houver muitas mensagens */
+    padding: 15px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para cada balão de mensagem */
+.chat-messages .message {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+/* Estilo para a mensagem do usuário */
+.chat-messages .user-message {
+    background-color: #00e676; /* Cor de destaque para o usuário */
+    color: #1a1a1a;
+    align-self: flex-end; /* Alinha a mensagem à direita */
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+
+/* Estilo para a mensagem da IA */
+.chat-messages .bot-message {
+    background-color: #e9e9eb;
+    color: #333;
+    align-self: flex-start; /* Alinha a mensagem à esquerda */
+    border-bottom-left-radius: 5px;
+}
+
+/* Estilo para a área de input */
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ccc;
+    background-color: white;
+}
+
+#chat-input-field {
+    flex-grow: 1;
     border: none;
+    padding: 15px;
+    font-size: 14px;
+    outline: none;
+}
+
+#chat-send-button {
+    background-color: #00e676;
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#chat-send-button:hover {
+    background-color: #00b35c;
 }
 
 /* Botão de Menu Mobile (Hamburger) */
