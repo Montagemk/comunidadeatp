@@ -73,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- LÓGICA COMPLETA DO CHATBOT (COM A CORREÇÃO FINAL) ---
+    // --- LÓGICA COMPLETA DO CHATBOT ---
     const toggleButton = document.querySelector('.chatbot-button'); 
     const chatbotWindow = document.querySelector('.chatbot-window');
-    const closeButton = document.querySelector('.close-chat-button'); // NOVO: Botão de fechar
+    const closeButton = document.querySelector('.close-chat-button');
     const sendButton = document.getElementById('chat-send-button');
     const inputField = document.getElementById('chat-input-field');
     const chatMessages = document.querySelector('.chat-messages');
@@ -96,15 +96,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const uniqueSenderId = getOrSetSenderId();
 
-    // --- LÓGICA DE ABRIR E FECHAR O CHAT (ATUALIZADA) ---
     function openChat() {
         chatbotWindow.classList.remove('hidden');
-        toggleButton.classList.add('hidden'); // Esconde o botão principal
+        toggleButton.classList.add('hidden');
     }
 
     function closeChat() {
         chatbotWindow.classList.add('hidden');
-        toggleButton.classList.remove('hidden'); // Mostra o botão principal novamente
+        toggleButton.classList.remove('hidden');
     }
 
     if (toggleButton) {
@@ -114,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeButton) {
         closeButton.addEventListener('click', closeChat);
     }
-    // --- FIM DA LÓGICA DE ABRIR E FECHAR ---
 
     if (sendButton && inputField) {
         sendButton.addEventListener('click', sendMessage);
@@ -165,12 +163,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // --- FUNÇÃO MODIFICADA PARA CRIAR BOTÕES E LINKS CLICÁVEIS ---
     function displayMessage(text, type) {
         if (!chatMessages) return;
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
-        messageElement.textContent = text;
+
+        const buttonRegex = /\[botão:(.*?)\|(https?:\/\/[^\s\]]+)\]/g;
+        const urlRegex = /(https?:\/\/[^\s.,?!)]+)/g;
+
+        let processedHtml = text;
+
+        // Primeiro, procuramos pelo formato de botão
+        if (buttonRegex.test(processedHtml)) {
+            // Substitui o código por um botão HTML
+            processedHtml = processedHtml.replace(buttonRegex, (match, buttonText, url) => {
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-button-link">${buttonText}</a>`;
+            });
+        } else {
+            // Se não houver botão, procuramos por links normais
+            processedHtml = processedHtml.replace(urlRegex, (url) => {
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+            });
+        }
+        
+        messageElement.innerHTML = processedHtml;
+
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+    // --- FIM DA MODIFICAÇÃO ---
 });
