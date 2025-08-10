@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('click', function() {
             mainNav.classList.toggle('active');
             menuToggle.classList.toggle('active');
-            // CORREÇÃO: Usando a classe 'menu-open' que será definida no CSS
             body.classList.toggle('menu-open');
         });
 
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Lógica de Rolagem Suave (Smooth Scroll) ---
-    // (Esta parte não precisou de alterações)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -55,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- Lógica de Ajuste Responsivo do Vídeo ---
-    // (Esta parte não precisou de alterações, apenas movi a chamada da função para o seu próprio listener)
     const videoElement = document.querySelector('#video-marketing .responsive-video');
     const videoWrapper = document.querySelector('#video-marketing .video-wrapper');
 
@@ -72,21 +69,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if (videoElement) {
         videoElement.addEventListener('loadedmetadata', adjustVideoWrapperSize);
         window.addEventListener('resize', adjustVideoWrapperSize);
-        // Chama uma vez para o caso de o vídeo já estar carregado
         adjustVideoWrapperSize();
     }
 
 
-    // --- Lógica Completa do CHATBOT (Corrigida) ---
-    // CORREÇÃO: Selecionando os elementos pela CLASSE, para corresponder ao CSS.
+    // --- LÓGICA COMPLETA DO CHATBOT (COM AS NOVAS MELHORIAS) ---
     const toggleButton = document.querySelector('.chatbot-button'); 
     const chatbotWindow = document.querySelector('.chatbot-window');
     const sendButton = document.getElementById('chat-send-button');
     const inputField = document.getElementById('chat-input-field');
     const chatMessages = document.querySelector('.chat-messages');
 
-    // **A SUA URL DO CHATBOT NO RENDER**
+    // **CONFIGURAÇÕES DE COMUNICAÇÃO**
     const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
+    // IMPORTANTE: Coloque aqui a mesma chave que você configurou no Render.
+    const API_KEY = 'sua-chave-secreta-deve-ser-trocada'; 
+
+    // --- CORREÇÃO 1: Lógica para criar e gerenciar um ID único para cada visitante ---
+    function getOrSetSenderId() {
+        let senderId = localStorage.getItem('chatbotSenderId');
+        if (!senderId) {
+            // Cria um ID único baseado no tempo e um número aleatório
+            senderId = 'web_user_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+            localStorage.setItem('chatbotSenderId', senderId);
+        }
+        return senderId;
+    }
+    
+    const uniqueSenderId = getOrSetSenderId();
+    // --- FIM DA CORREÇÃO 1 ---
 
     if (toggleButton && chatbotWindow) {
         toggleButton.addEventListener('click', function() {
@@ -113,20 +124,26 @@ document.addEventListener('DOMContentLoaded', function() {
         displayMessage(messageText, 'user-message');
         inputField.value = '';
 
+        // --- CORREÇÃO 2: Atualizando a chamada fetch com o ID único e a chave de API ---
         fetch(CHATBOT_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-API-Key': API_KEY // Adiciona a chave de API no cabeçalho
             },
             body: JSON.stringify({
-                sender: 'user_site',
+                sender: uniqueSenderId, // Envia o ID único do visitante
                 message: messageText
             })
         })
+        // --- FIM DA CORREÇÃO 2 ---
         .then(response => {
             if (!response.ok) {
                 console.error('Erro na requisição, status:', response.status);
-                throw new Error('Erro na rede ou no servidor');
+                // Tenta ler a mensagem de erro do servidor
+                return response.json().then(err => {
+                    throw new Error(err.error || 'Erro na rede ou no servidor');
+                });
             }
             return response.json();
         })
@@ -134,12 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data && data.length > 0 && data[0].text) {
                 displayMessage(data[0].text, 'bot-message');
             } else {
-                displayMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'bot-message');
+                displayMessage('Desculpe, recebi uma resposta inesperada. Tente novamente.', 'bot-message');
             }
         })
         .catch(error => {
             console.error('Erro ao comunicar com o chatbot:', error);
-            displayMessage('Desculpe, ocorreu um erro na comunicação. Tente novamente mais tarde.', 'bot-message');
+            displayMessage(`Desculpe, ocorreu um erro: ${error.message}. Tente novamente mais tarde.`, 'bot-message');
         });
     }
 
