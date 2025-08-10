@@ -73,9 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- LÓGICA COMPLETA DO CHATBOT ---
+    // --- LÓGICA COMPLETA DO CHATBOT (COM A CORREÇÃO FINAL) ---
     const toggleButton = document.querySelector('.chatbot-button'); 
     const chatbotWindow = document.querySelector('.chatbot-window');
+    const closeButton = document.querySelector('.close-chat-button'); // NOVO: Botão de fechar
     const sendButton = document.getElementById('chat-send-button');
     const inputField = document.getElementById('chat-input-field');
     const chatMessages = document.querySelector('.chat-messages');
@@ -95,17 +96,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const uniqueSenderId = getOrSetSenderId();
 
-    if (toggleButton && chatbotWindow) {
-        toggleButton.addEventListener('click', function() {
-            chatbotWindow.classList.toggle('hidden');
-        });
+    // --- LÓGICA DE ABRIR E FECHAR O CHAT (ATUALIZADA) ---
+    function openChat() {
+        chatbotWindow.classList.remove('hidden');
+        toggleButton.classList.add('hidden'); // Esconde o botão principal
     }
 
-    if (sendButton && inputField) {
-        sendButton.addEventListener('click', function() {
-            sendMessage();
-        });
+    function closeChat() {
+        chatbotWindow.classList.add('hidden');
+        toggleButton.classList.remove('hidden'); // Mostra o botão principal novamente
+    }
 
+    if (toggleButton) {
+        toggleButton.addEventListener('click', openChat);
+    }
+    
+    if (closeButton) {
+        closeButton.addEventListener('click', closeChat);
+    }
+    // --- FIM DA LÓGICA DE ABRIR E FECHAR ---
+
+    if (sendButton && inputField) {
+        sendButton.addEventListener('click', sendMessage);
         inputField.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 sendMessage();
@@ -153,22 +165,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- FUNÇÃO MODIFICADA PARA TORNAR LINKS CLICÁVEIS ---
     function displayMessage(text, type) {
         if (!chatMessages) return;
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
-
-        // Expressão regular para encontrar URLs no texto
-        const urlRegex = /(https?:\/\/[^\s]+)/g;
-        // Substitui as URLs encontradas por tags de link HTML clicáveis
-        const linkedText = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-        
-        // Usamos innerHTML para que o navegador renderize a tag <a> como um link
-        messageElement.innerHTML = linkedText;
-
+        messageElement.textContent = text;
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    // --- FIM DA MODIFICAÇÃO ---
 });
