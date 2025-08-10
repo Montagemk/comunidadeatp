@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- LÓGICA COMPLETA DO CHATBOT (COM AS NOVAS MELHORIAS) ---
+    // --- LÓGICA COMPLETA DO CHATBOT ---
     const toggleButton = document.querySelector('.chatbot-button'); 
     const chatbotWindow = document.querySelector('.chatbot-window');
     const sendButton = document.getElementById('chat-send-button');
@@ -82,14 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // **CONFIGURAÇÕES DE COMUNICAÇÃO**
     const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
-    // IMPORTANTE: Coloque aqui a mesma chave que você configurou no Render.
-    const API_KEY = '_k8_fTbg98bu-tH_z7PjG'; 
+    const API_KEY = '_k8_fTbg98bu-tH_z7PjG'; // Lembre-se de usar a sua chave real aqui
 
-    // --- CORREÇÃO 1: Lógica para criar e gerenciar um ID único para cada visitante ---
     function getOrSetSenderId() {
         let senderId = localStorage.getItem('chatbotSenderId');
         if (!senderId) {
-            // Cria um ID único baseado no tempo e um número aleatório
             senderId = 'web_user_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
             localStorage.setItem('chatbotSenderId', senderId);
         }
@@ -97,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     const uniqueSenderId = getOrSetSenderId();
-    // --- FIM DA CORREÇÃO 1 ---
 
     if (toggleButton && chatbotWindow) {
         toggleButton.addEventListener('click', function() {
@@ -124,23 +120,20 @@ document.addEventListener('DOMContentLoaded', function() {
         displayMessage(messageText, 'user-message');
         inputField.value = '';
 
-        // --- CORREÇÃO 2: Atualizando a chamada fetch com o ID único e a chave de API ---
         fetch(CHATBOT_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-Key': API_KEY // Adiciona a chave de API no cabeçalho
+                'X-API-Key': API_KEY
             },
             body: JSON.stringify({
-                sender: uniqueSenderId, // Envia o ID único do visitante
+                sender: uniqueSenderId,
                 message: messageText
             })
         })
-        // --- FIM DA CORREÇÃO 2 ---
         .then(response => {
             if (!response.ok) {
                 console.error('Erro na requisição, status:', response.status);
-                // Tenta ler a mensagem de erro do servidor
                 return response.json().then(err => {
                     throw new Error(err.error || 'Erro na rede ou no servidor');
                 });
@@ -160,12 +153,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // --- FUNÇÃO MODIFICADA PARA TORNAR LINKS CLICÁVEIS ---
     function displayMessage(text, type) {
         if (!chatMessages) return;
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
-        messageElement.textContent = text;
+
+        // Expressão regular para encontrar URLs no texto
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        // Substitui as URLs encontradas por tags de link HTML clicáveis
+        const linkedText = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+        
+        // Usamos innerHTML para que o navegador renderize a tag <a> como um link
+        messageElement.innerHTML = linkedText;
+
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+    // --- FIM DA MODIFICAÇÃO ---
 });
