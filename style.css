@@ -95,12 +95,18 @@ header .container {
     transform: translateY(-2px);
 }
 
-/* --- ESTILOS DO CHATBOT (COM AS MELHORIAS) --- */
+/* --- ESTILOS DO CHATBOT --- */
+
+/* ALTERAÇÃO APLICADA AQUI: Define a prioridade de camada para todo o chatbot */
+.chatbot-container {
+    position: relative; /* Necessário para o z-index funcionar corretamente */
+    z-index: 1001; /* Um valor maior que o z-index do header (1000) */
+}
+
 .chatbot-button {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    z-index: 1000;
     background-color: #00e676;
     color: #1a1a1a;
     font-family: 'Poppins', sans-serif;
@@ -128,7 +134,6 @@ header .container {
     position: fixed;
     right: 20px;
     bottom: 90px;
-    z-index: 999;
     width: 350px;
     height: 450px;
     background: white;
@@ -228,7 +233,7 @@ header .container {
     display: inline-block;
     padding: 12px 20px;
     background-color: #007bff;
-    color: white !important; /* !important para garantir a cor do texto */
+    color: white !important;
     text-decoration: none;
     border-radius: 8px;
     font-weight: bold;
@@ -267,9 +272,8 @@ header .container {
     color: #fff;
 }
 
-/* Estilos para os botões dinâmicos gerados pela IA */
 .dynamic-choices {
-    padding: 0 15px 10px 15px; /* Adicionado após a mensagem do bot */
+    padding: 0 15px 10px 15px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -318,7 +322,6 @@ header .container {
 #chat-send-button:hover {
     background-color: #00b35c;
 }
-
 /* Botão de Menu Mobile (Hamburger) */
 .menu-toggle {
     display: none;
