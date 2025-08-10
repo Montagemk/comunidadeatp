@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // **CONFIGURAÇÕES DE COMUNICAÇÃO**
     const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
     // IMPORTANTE: Coloque aqui a mesma chave que você configurou no Render.
-    const API_KEY = 'sua-chave-secreta-deve-ser-trocada'; 
+    const API_KEY = '_k8_fTbg98bu-tH_z7PjG'; 
 
     // --- CORREÇÃO 1: Lógica para criar e gerenciar um ID único para cada visitante ---
     function getOrSetSenderId() {
