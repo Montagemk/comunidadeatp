@@ -118,7 +118,6 @@ header .container {
     background-color: #00b35c;
 }
 
-/* Regra para esconder o botão principal quando o chat está aberto */
 .chatbot-button.hidden {
     transform: scale(0);
     opacity: 0;
@@ -145,6 +144,7 @@ header .container {
     visibility: hidden;
     transform: translateY(20px);
 }
+
 .chat-header {
     background-color: #00e676;
     color: #1a1a1a;
@@ -168,7 +168,7 @@ header .container {
 .status-indicator {
     width: 12px;
     height: 12px;
-    background-color: #28a745; /* Verde vivo */
+    background-color: #28a745;
     border-radius: 50%;
     animation: pulse-animation 2s infinite;
 }
@@ -223,6 +223,23 @@ header .container {
     align-self: flex-start;
     border-bottom-left-radius: 5px;
 }
+/* Estilo para links que devem parecer botões dentro do chat */
+.chat-button-link {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white !important; /* !important para garantir a cor do texto */
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+.chat-button-link:hover {
+    background-color: #0056b3;
+    color: white !important;
+}
 
 .quick-replies {
     padding: 10px 15px;
@@ -246,6 +263,32 @@ header .container {
 }
 
 .quick-reply-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilos para os botões dinâmicos gerados pela IA */
+.dynamic-choices {
+    padding: 0 15px 10px 15px; /* Adicionado após a mensagem do bot */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.choice-btn {
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.choice-btn:hover {
     background-color: #007bff;
     color: #fff;
 }
