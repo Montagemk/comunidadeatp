@@ -118,6 +118,7 @@ header .container {
     background-color: #00b35c;
 }
 
+/* Regra para esconder o botão principal quando o chat está aberto */
 .chatbot-button.hidden {
     transform: scale(0);
     opacity: 0;
@@ -144,7 +145,6 @@ header .container {
     visibility: hidden;
     transform: translateY(20px);
 }
-
 .chat-header {
     background-color: #00e676;
     color: #1a1a1a;
@@ -168,7 +168,7 @@ header .container {
 .status-indicator {
     width: 12px;
     height: 12px;
-    background-color: #28a745;
+    background-color: #28a745; /* Verde vivo */
     border-radius: 50%;
     animation: pulse-animation 2s infinite;
 }
@@ -224,7 +224,6 @@ header .container {
     border-bottom-left-radius: 5px;
 }
 
-/* NOVO: Estilos para os botões de resposta rápida */
 .quick-replies {
     padding: 10px 15px;
     display: flex;
@@ -250,7 +249,6 @@ header .container {
     background-color: #007bff;
     color: #fff;
 }
-
 
 .chat-input {
     display: flex;
@@ -311,7 +309,40 @@ section { padding: 80px 0; text-align: center; position: relative; }
 .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1; }
 .content-above-overlay { position: relative; z-index: 2; }
 
-/* ... (O resto do seu CSS continua aqui sem alterações) ... */
+/* Seção Hero e Botões */
+.hero-section { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); overflow: hidden; }
+.hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1; filter: brightness(0.7); animation: fadeIn 2s ease-out; }
+.hero-section .container { position: relative; z-index: 2; text-align: center; padding-top: 50px; }
+.hero-section h2 { font-size: 3.5em; margin-bottom: 15px; line-height: 1.2; font-weight: 700; color: #fff; text-transform: uppercase; }
+.hero-section h3 { font-size: 2em; margin-bottom: 20px; font-weight: 600; color: #00e676; }
+.hero-section p { font-size: 1.3em; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: 400; }
+.hero-section p:last-of-type { margin-bottom: 40px; }
+.btn-primary, .btn-secondary { display: inline-block; padding: 18px 35px; text-decoration: none; border-radius: 8px; font-size: 1.2em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-transform: uppercase; letter-spacing: 0.5px; }
+.btn-primary { background-color: #00e676; color: #1a1a1a; border: 2px solid #00e676; }
+.btn-primary:hover { background-color: #00b35c; color: #fff; border-color: #00b35c; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+.btn-secondary { background-color: #333; color: #00e676; border: 2px solid #00e676; }
+.btn-secondary:hover { background-color: #00e676; color: #1a1a1a; border-color: #00e676; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+.large-btn { padding: 22px 45px; font-size: 1.5em; margin-top: 30px; }
+
+/* Outras seções */
+#video-marketing .video-wrapper { position: relative; width: 100%; overflow: hidden; max-width: 900px; margin: 40px auto; background: #000; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); min-height: 200px; transition: height 0.3s ease; }
+#video-marketing .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: contain; }
+.advantages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; text-align: left; }
+.advantages-grid div { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #00e676; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
+.feature-card { background-color: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid #00e676; }
+.feature-card h3 { color: #00e676; font-size: 1.8em; margin-bottom: 15px; text-transform: uppercase; }
+.audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 40px; text-align: left; }
+.audience-card { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid #00e676; }
+.audience-card h3 { color: #1a1a1a; font-size: 2em; margin-bottom: 20px; }
+.audience-card ul { list-style: none; padding: 0; margin: 0; }
+.audience-card ul li { position: relative; padding-left: 30px; margin-bottom: 15px; font-size: 1.1em; color: #444; }
+.audience-card ul li::before { content: '✅'; position: absolute; left: 0; top: 0; font-size: 1.2em; color: #00e676; }
+.course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+.course-card { background-color: #fff; border: 1px solid #ddd; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.course-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
+.course-card img { width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 1px solid #eee; }
+.course-card .course-content { padding: 25px; }
 
 /* REGRAS PARA O MENU MOBILE E BLOQUEIO DE ROLAGEM */
 body.menu-open {
@@ -374,11 +405,43 @@ body.menu-open {
     /* CORREÇÃO DO CHATBOT NO MOBILE */
     .chatbot-window {
         width: 100vw;
-        height: 100vh;
+        height: 100%; /* Usa 100% da altura da janela visível */
         max-height: 100%;
         right: 0;
         bottom: 0;
         border-radius: 0;
         border: none;
+    }
+}
+
+/* CORREÇÃO PARA OVERFLOW DA SEÇÃO YONNATHAN */
+#yonnathan .yonnathan-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-align: left;
+}
+#yonnathan .yonnathan-image {
+    flex-shrink: 0;
+    width: 40%;
+    max-width: 400px;
+}
+#yonnathan img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+#yonnathan .yonnathan-text {
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    #yonnathan .yonnathan-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    #yonnathan .yonnathan-image {
+        width: 70%;
+        margin-bottom: 20px;
     }
 }
