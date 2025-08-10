@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendButton = document.getElementById('chat-send-button');
     const inputField = document.getElementById('chat-input-field');
     const chatMessages = document.querySelector('.chat-messages');
-    const quickRepliesContainer = document.querySelector('.quick-replies'); // NOVO: Container dos botões de resposta
+    const quickRepliesContainer = document.querySelector('.quick-replies');
 
     // **CONFIGURAÇÕES DE COMUNICAÇÃO**
     const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function openChat() {
         chatbotWindow.classList.remove('hidden');
         toggleButton.classList.add('hidden');
-        // Mostra os botões de resposta rápida quando o chat abre, se eles não tiverem sido usados ainda
         if (quickRepliesContainer) {
             quickRepliesContainer.style.display = 'flex';
         }
@@ -120,44 +119,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (sendButton && inputField) {
-        sendButton.addEventListener('click', () => sendMessageFromInput());
+        sendButton.addEventListener('click', () => handleUserMessage(inputField.value));
         inputField.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                sendMessageFromInput();
+                handleUserMessage(inputField.value);
             }
         });
     }
 
-    // NOVO: Lógica para os botões de resposta rápida
     if (quickRepliesContainer) {
         quickRepliesContainer.addEventListener('click', function(event) {
             if (event.target.classList.contains('quick-reply-btn')) {
                 const message = event.target.getAttribute('data-message');
-                sendMessage(message); // Envia a mensagem do botão
-                quickRepliesContainer.style.display = 'none'; // Esconde os botões após o clique
+                handleUserMessage(message);
             }
         });
     }
 
-    // Função que pega o texto do campo de digitação e envia
-    function sendMessageFromInput() {
-        const messageText = inputField.value.trim();
-        if (messageText !== '') {
-            sendMessage(messageText);
-            inputField.value = '';
-            // Esconde os botões de resposta rápida assim que o usuário digita algo
-            if (quickRepliesContainer) {
-                quickRepliesContainer.style.display = 'none';
-            }
+    // Função central para lidar com o envio de mensagens do usuário
+    function handleUserMessage(messageText) {
+        const trimmedMessage = messageText.trim();
+        if (trimmedMessage === '') return;
+
+        displayMessage(trimmedMessage, 'user-message');
+        if (inputField) inputField.value = '';
+
+        // Esconde os botões de resposta rápida após a primeira interação
+        if (quickRepliesContainer) {
+            quickRepliesContainer.style.display = 'none';
         }
+        
+        // Remove botões de escolha dinâmicos de mensagens anteriores
+        removeDynamicChoices();
+
+        // Envia a mensagem para a IA
+        sendMessageToAI(trimmedMessage);
     }
 
-    // Função principal de envio de mensagem (agora recebe o texto como parâmetro)
-    function sendMessage(messageText) {
-        if (!messageText) return;
-
-        displayMessage(messageText, 'user-message');
-
+    function sendMessageToAI(messageText) {
         fetch(CHATBOT_URL, {
             method: 'POST',
             headers: {
@@ -171,10 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             if (!response.ok) {
-                console.error('Erro na requisição, status:', response.status);
-                return response.json().then(err => {
-                    throw new Error(err.error || 'Erro na rede ou no servidor');
-                });
+                return response.json().then(err => { throw new Error(err.error || 'Erro na rede'); });
             }
             return response.json();
         })
@@ -182,12 +178,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data && data.length > 0 && data[0].text) {
                 displayMessage(data[0].text, 'bot-message');
             } else {
-                displayMessage('Desculpe, recebi uma resposta inesperada. Tente novamente.', 'bot-message');
+                displayMessage('Desculpe, recebi uma resposta inesperada.', 'bot-message');
             }
         })
         .catch(error => {
             console.error('Erro ao comunicar com o chatbot:', error);
-            displayMessage(`Desculpe, ocorreu um erro: ${error.message}. Tente novamente mais tarde.`, 'bot-message');
+            displayMessage(`Desculpe, ocorreu um erro: ${error.message}.`, 'bot-message');
         });
     }
 
@@ -195,8 +191,55 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!chatMessages) return;
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
-        messageElement.textContent = text;
+
+        // Regex para os diferentes formatos
+        const choiceRegex = /\[choice:(.*?)\]/g;
+        const buttonRegex = /\[botão:(.*?)\|(https?:\/\/[^\s\]]+)\]/g;
+        const urlRegex = /(https?:\/\/[^\s.,?!)]+)/g;
+
+        let mainText = text;
+        let choices = [];
+
+        // Extrai os botões de escolha da resposta da IA
+        if (type === 'bot-message') {
+            mainText = text.replace(choiceRegex, (match, choiceText) => {
+                choices.push(choiceText);
+                return ''; // Remove o código [choice:...] do texto principal
+            }).trim();
+        }
+
+        // Processa o texto principal para links ou botões de link
+        let processedHtml = mainText;
+        if (buttonRegex.test(processedHtml)) {
+            processedHtml = processedHtml.replace(buttonRegex, '<a href="$2" target="_blank" rel="noopener noreferrer" class="chat-button-link">$1</a>');
+        } else {
+            processedHtml = processedHtml.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+        }
+        
+        messageElement.innerHTML = processedHtml;
         chatMessages.appendChild(messageElement);
+
+        // Se houver botões de escolha, cria e adiciona eles
+        if (choices.length > 0) {
+            const choicesContainer = document.createElement('div');
+            choicesContainer.classList.add('dynamic-choices');
+            choices.forEach(choiceText => {
+                const choiceButton = document.createElement('button');
+                choiceButton.classList.add('choice-btn');
+                choiceButton.textContent = choiceText;
+                choiceButton.addEventListener('click', () => {
+                    handleUserMessage(choiceText);
+                });
+                choicesContainer.appendChild(choiceButton);
+            });
+            chatMessages.appendChild(choicesContainer);
+        }
+
         chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function removeDynamicChoices() {
+        const existingChoices = document.querySelectorAll('.dynamic-choices');
+        existingChoices.forEach(container => container.remove());
     }
 });
