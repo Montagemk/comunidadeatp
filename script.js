@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendButton = document.getElementById('chat-send-button');
     const inputField = document.getElementById('chat-input-field');
     const chatMessages = document.querySelector('.chat-messages');
+    const quickRepliesContainer = document.querySelector('.quick-replies'); // NOVO: Container dos botões de resposta
 
     // **CONFIGURAÇÕES DE COMUNICAÇÃO**
     const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
@@ -99,6 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function openChat() {
         chatbotWindow.classList.remove('hidden');
         toggleButton.classList.add('hidden');
+        // Mostra os botões de resposta rápida quando o chat abre, se eles não tiverem sido usados ainda
+        if (quickRepliesContainer) {
+            quickRepliesContainer.style.display = 'flex';
+        }
     }
 
     function closeChat() {
@@ -115,20 +120,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (sendButton && inputField) {
-        sendButton.addEventListener('click', sendMessage);
+        sendButton.addEventListener('click', () => sendMessageFromInput());
         inputField.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                sendMessage();
+                sendMessageFromInput();
             }
         });
     }
 
-    function sendMessage() {
+    // NOVO: Lógica para os botões de resposta rápida
+    if (quickRepliesContainer) {
+        quickRepliesContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('quick-reply-btn')) {
+                const message = event.target.getAttribute('data-message');
+                sendMessage(message); // Envia a mensagem do botão
+                quickRepliesContainer.style.display = 'none'; // Esconde os botões após o clique
+            }
+        });
+    }
+
+    // Função que pega o texto do campo de digitação e envia
+    function sendMessageFromInput() {
         const messageText = inputField.value.trim();
-        if (messageText === '') return;
+        if (messageText !== '') {
+            sendMessage(messageText);
+            inputField.value = '';
+            // Esconde os botões de resposta rápida assim que o usuário digita algo
+            if (quickRepliesContainer) {
+                quickRepliesContainer.style.display = 'none';
+            }
+        }
+    }
+
+    // Função principal de envio de mensagem (agora recebe o texto como parâmetro)
+    function sendMessage(messageText) {
+        if (!messageText) return;
 
         displayMessage(messageText, 'user-message');
-        inputField.value = '';
 
         fetch(CHATBOT_URL, {
             method: 'POST',
@@ -163,34 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- FUNÇÃO MODIFICADA PARA CRIAR BOTÕES E LINKS CLICÁVEIS ---
     function displayMessage(text, type) {
         if (!chatMessages) return;
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
-
-        const buttonRegex = /\[botão:(.*?)\|(https?:\/\/[^\s\]]+)\]/g;
-        const urlRegex = /(https?:\/\/[^\s.,?!)]+)/g;
-
-        let processedHtml = text;
-
-        // Primeiro, procuramos pelo formato de botão
-        if (buttonRegex.test(processedHtml)) {
-            // Substitui o código por um botão HTML
-            processedHtml = processedHtml.replace(buttonRegex, (match, buttonText, url) => {
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-button-link">${buttonText}</a>`;
-            });
-        } else {
-            // Se não houver botão, procuramos por links normais
-            processedHtml = processedHtml.replace(urlRegex, (url) => {
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-            });
-        }
-        
-        messageElement.innerHTML = processedHtml;
-
+        messageElement.textContent = text;
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    // --- FIM DA MODIFICAÇÃO ---
 });
