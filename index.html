@@ -1,226 +1,161 @@
-/* Reset Básico para melhor controle de CSS */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Comunidade ATP | Mais de 800 Cursos Online com Pablo Marçal, Thiago Nigro, Thiago Finch, Erico Rocha, Joel Jota, Renato Cariani, Leandro Ladeira e Mais! Marketing Digital, Finanças, Desenvolvimento Pessoal e Alta Performance.</title>
+    
+    <meta name="description" content="A Comunidade ATP oferece acesso imediato a mais de 800 cursos online completos dos maiores especialistas do mercado. Aprenda com Pablo Marçal, Thiago Nigro, Thiago Finch, Érico Rocha, Joel Jota, Renato Cariani, Leandro Ladeira e outros. Ideal para quem busca liberdade financeira, viver do digital, empreender, escalar resultados em marketing digital, tráfego pago, copywriting, finanças, desenvolvimento pessoal e alta performance. Garanta sua vaga com 30 dias de garantia e transforme sua carreira!">
+    
+    <meta name="keywords" content="comunidade atp, cursos online, marketing digital, liberdade financeira, viver do digital, pablo marçal, thiago nigro, thiago finch, erico rocha, joel jota, renato cariani, leandro ladeira, desenvolvimento pessoal, finanças, tráfego pago, copywriting, lançamentos, investimento, empreendedorismo digital, renda extra, hotmart, monetizze, kienve, curso Pablo Marçal, comunidade Pablo Marçal, método IP Pablo Marçal, Pablo Marçal mentorias, códigos do milhão Pablo Marçal, desenvolvimento pessoal Pablo Marçal, Imersão Pablo Marçal online, treinamentos Pablo Marçal, eventos Pablo Marçal, curso de vendas Pablo Marçal, Pablo Marçal digital, curso Marcos Paulo PLR, comunidade Marcos Paulo marketing, Marcos Paulo mentor, marketing digital Marcos Paulo, como vender PLR Marcos Paulo, cursos online Marcos Paulo, Marcos Paulo lançamentos, estratégias Marcos Paulo, Marcos Paulo tráfego pago, fórmula Marcos Paulo, curso Thiago Nigro, comunidade Primo Rico, Primo Rico investimentos, educação financeira Thiago Nigro, como investir Thiago Nigro, do mil ao milhão curso, Thiago Nigro ações, planejamento financeiro Primo Rico, mentoria Thiago Nigro, carteira de investimentos Primo Rico, curso Thiago Finch, comunidade Thiago Finch, Thiago Finch PLR, marketing digital Thiago Finch, vendas online Thiago Finch, afiliados Thiago Finch, dropshipping Thiago Finch, estratégias Thiago Finch, Thiago Finch Hotmart, mentorias Thiago Finch, curso Fórmula de Lançamento Erico Rocha, comunidade Erico Rocha, lançamentos digitais Erico Rocha, como fazer 6 em 7, marketing de infoprodutos Erico Rocha, método Erico Rocha, Erico Rocha lançamentos online, mentoria Erico Rocha, estratégias de lançamento Erico Rocha, fórmula de lançamento online, curso Joel Jota, comunidade Joel Jota, alta performance Joel Jota, produtividade Joel Jota, mentalidade de campeão Joel Jota, liderança Joel Jota, livros Joel Jota, mentorias Joel Jota, como ter foco Joel Jota, curso de desenvolvimento pessoal Joel Jota, cursos online dos melhores, comunidade de marketing digital, plataforma de cursos de empreendedorismo, aprender com os maiores nomes do mercado digital, cursos de desenvolvimento pessoal online, educação financeira para empreendedores, cursos de alta performance, plataforma de gurus do marketing, melhores cursos online, comunidade de aprendizado digital, cursos de transformação pessoal, acesso a mentores renomados, network com empreendedores, assinatura de cursos online, viver do digital, liberdade financeira, escalar resultados, empreender online, gurus do digital, marketing de afiliados, gestão de tráfego, social media, funil de vendas, branding, produtividade extrema, hábitos de sucesso, inteligência financeira, criptomoedas, bolsa de valores para iniciantes, mind set milionário, códigos milionários, venda com story, copywriting estratégico, influencer marketing, vendas de alta conversão">
+    
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://comunidadeatp.store/">
+    
+    <meta property="og:title" content="Comunidade ATP Store | 800+ Cursos Online com Pablo Marçal, Thiago Nigro e Mais Gurus do Digital">
+    <meta property="og:description" content="Acesse a maior comunidade de cursos online do Brasil! Aprenda marketing digital, finanças, desenvolvimento pessoal, alta performance e empreendedorismo com os maiores nomes do mercado. Transforme sua vida digital com a ATP Store.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://comunidadeatp.store/">
+    <meta property="og:image" content="https://comunidadeatp.store/imagens/banner-compartilhamento-atp.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Comunidade ATP Store">
 
-html {
-    scroll-behavior: smooth; /* Para rolagem suave do JavaScript */
-}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Comunidade ATP Store | Cursos Online de Marketing Digital, Finanças e Desenvolvimento Pessoal">
+    <meta name="twitter:description" content="Aprenda com Pablo Marçal, Thiago Nigro, Thiago Finch, Erico Rocha, Joel Jota, Renato Cariani, Leandro Ladeira e os maiores nomes. Sua chance de viver do digital!">
+    <meta name="twitter:image" content="https://comunidadeatp.store/imagens/banner-compartilhamento-atp.jpg">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-/* Importação de Fontes do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+    <meta name="author" content="Comunidade ATP Store">
+    <meta name="language" content="Portuguese">
+    <meta name="audience" content="all">
+    <meta name="rating" content="general">
+    <meta name="googlebot" content="index, follow"> 
+    <meta name="bingbot" content="index, follow">  
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-/* Estilos Globais */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f2f5;
-    color: #333;
-    line-height: 1.6;
-    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
-}
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YBY7357QS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
-}
+  gtag('config', 'G-1YBY7357QS');
+</script>
+</head>
+<body>
 
-/* --------------------------------- */
-/* --- CABEÇALHO (HEADER) --- */
-/* --------------------------------- */
+    <header>
+        <div class="container">
+            <h1 class="logo"> ATP </h1> <nav id="main-nav">
+                <ul>
+                    <li><a href="#cursos">Nossos Cursos</a></li>
+                    <li><a href="#comunidade">Nossa Comunidade</a></li>
+                    <li><a href="#para-quem">Para Quem?</a></li>
+                    <li><a href="#garantia">Garantia</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Abrir menu de navegação">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
 
-header {
-    background-color: transparent; 
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-shadow: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+    <main>
 
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Permite quebrar linha em mobile */
-}
+        <section id="hero" class="hero-section">
+            <div class="hero-background" style="background-image: url('imagens/fundo_hero.png');"></div>
+            <div class="container">
+                <h2>A COMUNIDADE QUE VAI LEVAR SUA CARREIRA NO DIGITAL PARA O PRÓXIMO NÍVEL!</h2>
+                <h3>O CAMINHO MAIS RÁPIDO PARA O SUCESSO ONLINE ESTÁ AQUI!</h3>
+                <p>SE VOCÊ ESTÁ CANSADO DE TENTAR SOZINHO, FRUSTRADO COM PROMESSAS VAZIAS E QUER FINALMENTE VER RESULTADOS REAIS</p>
+                <p>ESSA É A SUA OPORTUNIDADE DE OURO!</p>
+                <a href="https://pay.kiwify.com.br/eJtRbgu" class="btn-primary large-btn" target="_blank">QUERO ENTRAR NA COMUNIDADE AGORA!</a>
+            </div>
+        </section>
 
-.logo {
-    margin: 0;
-    font-size: 2.2em;
-    color: #00e676;
-    font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0,230,118,0.5);
-}
+        <section id="video-marketing" class="section-padded text-center section-dark">
+            <div class="container">
+                <h2 class="section-title">COMO COMEÇAR NO MARKETING DIGITAL DO ZERO</h2>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" poster="imagens/thumbnail_video_hero.jpg" class="responsive-video" autoplay muted>
+                        <source src="imagens/video_hero.mp4" type="video/mp4">
+                        Seu navegador não suporta a tag de vídeo.
+                    </video>
+                </div>
+                <p class="video-call-to-action"></p>
+                <a href="https://pay.kiwify.com.br/eJtRbgu" class="btn-primary" target="_blank">Quero Aprender!</a>
+            </div>
+        </section>
 
-#main-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
+        <section id="sobre-comunidade" class="section-padded text-center">
+            <div class="container">
+                <h2>VOCÊ ESTÁ A UM PASSO DE TRANSFORMAR SUA CARREIRA!</h2>
+                <p>Se você está aqui agora, quero te dizer que essa comunidade foi pensada e organizada estrategicamente para quem quer viver do digital, assim como nós que criamos esse grupo fechado, aqui você vai ter acesso imediato a um arsenal de mais de 800 cursos dos maiores especialistas do mercado, sem precisar gastar rios de dinheiro ou perder tempo com informações desencontradas.</p>
+                <p>Essa não é apenas mais uma plataforma de cursos. É a chave para sua virada no digital!</p>
+                <div class="advantages-grid">
+                    <div>
+                        <p><strong>Se você está começando</strong>, terá um caminho claro e direto para sair do zero.</p>
+                    </div>
+                    <div>
+                        <p><strong>Se já empreende</strong>, vai ter acesso aos conteúdos dos maiores especialistas no mercado em 2025 e aprenderá estratégias avançadas para escalar seus resultados online.</p>
+                    </div>
+                    <div>
+                        <p><strong>Se quer sair do seu emprego</strong>, terá tudo que precisa para começar no digital com segurança e gerar renda extra!</p>
+                    </div>
+                </div>
+                <p>Pare de sentir que está atrasado! Essa é a oportunidade de alcançar o que você sempre sonhou no mercado digital.</p>
+            </div>
+        </section>
 
-#main-nav ul li {
-    margin-left: 30px;
-}
+        <section id="comunidade" class="section-padded section-dark">
+            <div class="container">
+                <h2 class="section-title">O QUE VOCÊ VAI ENCONTRAR NA NOSSA COMUNIDADE ATP STORE?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>CONHECIMENTO ATUALIZADO</h3>
+                        <p>Tenha em mãos os cursos mais completos sobre marketing digital, tráfego pago, copywriting, lançamentos, gestão de redes sociais, vendas online, e muito mais!</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>ECONOMIA DE TEMPO E DINHEIRO</h3>
+                        <p>Pare de gastar fortuna com cursos avulsos e dispersos! Com a nossa comunidade, você tem acesso a mais de 800 cursos por um valor muito mais acessível. (Muito mesmo)</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>SUPORTE E NETWORKING</h3>
+                        <p>Conecte-se com outros empreendedores e profissionais do digital, tire dúvidas diretamente com especialistas e crie parcerias que vão impulsionar seu crescimento e liberdade financeira.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-#main-nav ul li a {
-    color: #fff;
-    font-weight: 600;
-    transition: color 0.3s ease, transform 0.2s ease;
-    position: relative;
-    padding-bottom: 5px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
+        <section id="yonnathan" class="section-padded section-dark" style="background-image: url('imagens/fundo_autoridade.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+            <div class="overlay"></div> 
+            <div class="container content-above-overlay">
+                </div>
+        </section>
 
-#main-nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 3px;
-    background-color: #00e676;
-    left: 0;
-    bottom: 0;
-    transition: width 0.3s ease;
-}
+        <section id="contato" class="section-padded text-center section-light">
+            <div class="container">
+                </div>
+        </section>
+        
+        <div class="chatbot-container">
+             </div>
+    
+    </main> <footer>
+        <div class="container">
+            <p>© 2025 Comunidade ATP Store. Todos os direitos reservados. </p>
+        </div>
+    </footer>
 
-#main-nav ul li a:hover::after {
-    width: 100%;
-}
-
-#main-nav ul li a:hover {
-    color: #00e676;
-    transform: translateY(-2px);
-}
-
-
-/* --------------------------------- */
-/* --- SECÇÕES GERAIS E HERO --- */
-/* --------------------------------- */
-
-section { 
-    padding: 80px 0; 
-    text-align: center; 
-    position: relative; 
-}
-
-.section-title { font-size: 2.8em; margin-bottom: 25px; color: #1a1a1a; font-weight: 700; }
-.section-subtitle { font-size: 1.2em; margin-bottom: 40px; color: #555; }
-.section-dark { background-color: #1a1a1a; color: #f0f2f5; }
-.section-dark .section-title, .section-dark h3, .section-dark p, .section-dark .subtitle, .section-dark ul li, .section-dark .video-call-to-action { color: #fff; }
-.section-light { background-color: #f0f2f5; color: #333; }
-.section-white { background-color: #fff; color: #333; }
-.overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1; }
-.content-above-overlay { position: relative; z-index: 2; }
-
-/* Seção Hero (Homepage) */
-.hero-section { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); overflow: hidden; }
-.hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1; filter: brightness(0.7); animation: fadeIn 2s ease-out; }
-
-/* CORREÇÃO FINAL PARA SOBREPOSIÇÃO DO HEADER */
-main > section:first-of-type {
-    padding-top: 0;
-}
-.hero-section .container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding-top: 120px; /* Espaçamento interno para o conteúdo não ficar sob o header */
-}
-
-.hero-section h2 { font-size: 3.5em; margin-bottom: 15px; line-height: 1.2; font-weight: 700; color: #fff; text-transform: uppercase; }
-.hero-section h3 { font-size: 2em; margin-bottom: 20px; font-weight: 600; color: #00e676; }
-.hero-section p { font-size: 1.3em; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: 400; }
-.hero-section p:last-of-type { margin-bottom: 40px; }
-
-
-/* --------------------------------- */
-/* --- BOTÕES E OUTRAS SECÇÕES --- */
-/* --------------------------------- */
-
-.btn-primary, .btn-secondary { display: inline-block; padding: 18px 35px; text-decoration: none; border-radius: 8px; font-size: 1.2em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-transform: uppercase; letter-spacing: 0.5px; }
-.btn-primary { background-color: #00e676; color: #1a1a1a; border: 2px solid #00e676; }
-.btn-primary:hover { background-color: #00b35c; color: #fff; border-color: #00b35c; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
-.large-btn { padding: 22px 45px; font-size: 1.5em; margin-top: 30px; }
-
-#video-marketing .video-wrapper { position: relative; width: 100%; overflow: hidden; max-width: 900px; margin: 40px auto; background: #000; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); min-height: 200px; transition: height 0.3s ease; }
-#video-marketing .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: contain; }
-.advantages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; text-align: left; }
-.advantages-grid div { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #00e676; }
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
-.feature-card { background-color: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid #00e676; }
-.feature-card h3 { color: #00e676; font-size: 1.8em; margin-bottom: 15px; text-transform: uppercase; }
-
-/* Seção Instrutor */
-#yonnathan .yonnathan-content { display: flex; align-items: center; gap: 40px; text-align: left; }
-#yonnathan .yonnathan-image { flex-shrink: 0; width: 40%; max-width: 400px; }
-#yonnathan img { max-width: 100%; height: auto; border-radius: 10px; }
-#yonnathan .yonnathan-text { flex-grow: 1; }
-
-
-/* --------------------------------- */
-/* --- ESTILOS DO CHATBOT --- */
-/* --------------------------------- */
-.chatbot-container { position: relative; z-index: 1001; }
-.chatbot-button { position: fixed; right: 20px; bottom: 20px; background-color: #00e676; color: #1a1a1a; font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 16px; border: none; border-radius: 50px; padding: 15px 25px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); cursor: pointer; transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s, visibility 0.3s; }
-.chatbot-button:hover { transform: scale(1.05); background-color: #00b35c; }
-.chatbot-button.hidden { transform: scale(0); opacity: 0; visibility: hidden; }
-.chatbot-window { position: fixed; right: 20px; bottom: 90px; width: 350px; height: 450px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; display: flex; flex-direction: column; }
-.chatbot-window.hidden { opacity: 0; visibility: hidden; transform: translateY(20px); }
-.chat-header { background-color: #00e676; color: #1a1a1a; padding: 15px; border-top-left-radius: 10px; border-top-right-radius: 10px; font-weight: bold; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
-.status-container { display: flex; align-items: center; gap: 10px; }
-.status-indicator { width: 12px; height: 12px; background-color: #28a745; border-radius: 50%; animation: pulse-animation 2s infinite; }
-.close-chat-button { background: none; border: none; color: #1a1a1a; font-size: 24px; font-weight: bold; cursor: pointer; line-height: 1; padding: 0 5px; opacity: 0.7; transition: opacity 0.2s; }
-.close-chat-button:hover { opacity: 1; }
-@keyframes pulse-animation { 0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); } 100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); } }
-.chat-messages { flex-grow: 1; overflow-y: auto; padding: 15px; background-color: #f9f9f9; display: flex; flex-direction: column; }
-.chat-messages .message { margin-bottom: 10px; padding: 10px 15px; border-radius: 20px; max-width: 80%; line-height: 1.4; }
-.chat-messages .user-message { background-color: #00e676; color: #1a1a1a; align-self: flex-end; margin-left: auto; border-bottom-right-radius: 5px; }
-.chat-messages .bot-message { background-color: #e9e9eb; color: #333; align-self: flex-start; border-bottom-left-radius: 5px; }
-.quick-replies { padding: 10px 15px; display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid #eee; background-color: #f9f9f9; }
-.quick-reply-btn { background-color: #fff; color: #007bff; border: 1px solid #007bff; border-radius: 20px; padding: 8px 15px; font-size: 14px; font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.2s; }
-.quick-reply-btn:hover { background-color: #007bff; color: #fff; }
-.quick-reply-btn.whatsapp { background-color: #25D366; border-color: #25D366; color: white; }
-.quick-reply-btn.whatsapp:hover { background-color: #1EBE57; border-color: #1EBE57; }
-.chat-input { display: flex; border-top: 1px solid #ccc; background-color: white; flex-shrink: 0; }
-#chat-input-field { flex-grow: 1; border: none; padding: 15px; font-size: 14px; outline: none; }
-#chat-send-button { background-color: #00e676; color: #1a1a1a; border: none; padding: 15px 20px; cursor: pointer; font-size: 14px; transition: background-color 0.3s ease; }
-#chat-send-button:hover { background-color: #00b35c; }
-
-
-/* --------------------------------- */
-/* --- MEDIA QUERIES (MOBILE) --- */
-/* --------------------------------- */
-.menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 10px; position: relative; z-index: 1001; }
-.hamburger { display: block; width: 30px; height: 3px; background-color: #00e676; margin: 6px 0; transition: all 0.3s ease-in-out; }
-.menu-toggle.active .hamburger:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-.menu-toggle.active .hamburger:nth-child(2) { opacity: 0; }
-.menu-toggle.active .hamburger:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-body.menu-open { overflow: hidden; }
-
-@media (max-width: 768px) {
-    .logo { font-size: 1.8em; }
-    .menu-toggle { display: block; }
-    #main-nav { position: fixed; top: 0; right: 0; width: 100%; height: 100vh; background-color: rgba(26, 26, 26, 0.98); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; transform: translateX(100%); transition: transform 0.4s ease-in-out; visibility: hidden; z-index: 1000; }
-    #main-nav.active { transform: translateX(0); visibility: visible; }
-    #main-nav ul { flex-direction: column; text-align: center; }
-    #main-nav ul li { margin: 20px 0; margin-left: 0; }
-    #main-nav ul li a { font-size: 2em; }
-    .hero-section { height: auto; padding: 80px 0; }
-    .hero-section h2 { font-size: 2.2em; }
-    .hero-section h3 { font-size: 1.5em; }
-    .hero-section p { font-size: 1.1em; }
-
-    #yonnathan .yonnathan-content { flex-direction: column; text-align: center; }
-    #yonnathan .yonnathan-image { width: 70%; margin-bottom: 20px; }
-
-    .chatbot-window { width: 100vw; height: 100%; max-height: 100%; right: 0; bottom: 0; border-radius: 0; border: none; }
-}
+    <script src="script.js" defer></script>
+</body>
+</html>
