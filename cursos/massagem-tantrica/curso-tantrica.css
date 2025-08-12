@@ -1,99 +1,117 @@
-/* Em: cursos/massagem-tantrica/curso-tantrica.css */
+/*
+ * CSS Específico para a Página do Curso de Massagem Tântrica
+ * Versão: 2.0 (Com nova identidade visual)
+ */
 
-/* Define as variáveis de cor para esta página */
+/* --- VARIÁVEIS DE COR E FONTES --- */
 :root {
-    --cor-principal-curso: #e8a49f; /* Tom principal rosa queimado */
-    --cor-texto-escuro: #4f4a45;     /* Um marrom escuro para textos */
-    --cor-fundo-claro: #F9F7F4;      /* Bege bem claro para fundos */
+    --cor-principal-curso: #cb8c87; /* Tom de rosa queimado para botões e ações */
+    --cor-texto-escuro: #4f4a45;     /* Marrom escuro para textos */
+    --cor-fundo-claro: #F9F7F4;      /* Bege bem claro para o fundo da página */
+    --fonte-manuscrita: 'Great Vibes', cursive;
+    --fonte-titulos: 'Raleway', sans-serif;
+    --fonte-texto: 'Lato', sans-serif;
 }
+
 
 /* --- ESTILOS GERAIS DA PÁGINA --- */
 body {
+    background-color: var(--cor-fundo-claro);
     color: var(--cor-texto-escuro);
-    font-family: 'Raleway', sans-serif; /* Fonte mais suave para a página */
+    font-family: var(--fonte-texto);
 }
 
-/* Títulos principais com fonte mais elegante */
-.section-title, #hero h2 {
-    font-family: 'Raleway', sans-serif;
+.section-title {
+    font-family: var(--fonte-titulos);
+    color: #333;
 }
 
-/* Textos gerais com mais legibilidade */
 section p {
     color: #555;
     font-size: 1.1em;
-    font-family: 'Lato', sans-serif;
 }
 
-.section-dark p, .section-dark h3 {
+/* Secções escuras personalizadas para o curso */
+.section-dark-curso {
+    background-color: #312f2d; /* Um tom de marrom/cinza escuro */
     color: #f0f2f5;
 }
 
-
-/* --- SECÇÃO HERO --- */
-#hero .hero-background {
-    background-image: url('https://static-media.hotmart.com/_ubCA8mSnOkUfszoKK35nRXvqyE=/filters:quality(100)/klickart-prod/uploads/media/file/9138904/massagem-tantrica.jpg');
-    background-position: center center;
-    filter: brightness(0.8);
-}
-
-#hero h2 {
-    font-size: 2.8em;
-    text-transform: none; /* Remove o ALL CAPS */
-    background-color: rgba(0, 0, 0, 0.4);
+.section-dark-curso .section-title, 
+.section-dark-curso p, 
+.section-dark-curso h3 {
     color: #fff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-    padding: 15px 25px;
-    border-radius: 5px;
-    display: inline;
-    line-height: 1.5;
-    box-decoration-break: clone; /* Garante que o fundo se aplique bem em quebras de linha */
-    -webkit-box-decoration-break: clone;
-}
-
-@media (max-width: 768px) {
-    #hero h2 {
-        font-size: 2em;
-    }
-}
-
-#hero p {
-    color: #fff;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
 }
 
 
-/* --- VÍDEO E DEPOIMENTOS --- */
-.video-wrapper, .depoimento-card-video {
+/* --- SECÇÃO HERO REDESENHADA --- */
+.hero-section-curso {
     position: relative;
-    padding-bottom: 56.25%; /* Proporção 16:9 */
-    height: 0;
+    padding: 100px 0 60px 0;
+    text-align: center;
+    color: #fff;
     overflow: hidden;
-    max-width: 900px;
-    margin: 40px auto;
-    background: #000;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.video-wrapper iframe, .depoimento-card-video iframe {
+.hero-background-curso {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: 0;
+    background-image: url('https://static-media.hotmart.com/_ubCA8mSnOkUfszoKK35nRXvqyE=/filters:quality(100)/klickart-prod/uploads/media/file/9138904/massagem-tantrica.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px) brightness(0.8);
+    transform: scale(1.1); /* Evita bordas vazias por causa do blur */
 }
 
-.depoimento-grid-video {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+.hero-section-curso .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title-curso {
+    font-family: var(--fonte-manuscrita);
+    font-size: 5em;
+    font-weight: normal;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-subtitle-curso {
+    font-family: var(--fonte-titulos);
+    font-size: 1.4em;
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.video-wrapper-hero {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto 40px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+
+.video-wrapper-hero iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -112,7 +130,24 @@ section p {
 }
 
 
-/* --- SECÇÃO DE PREÇO --- */
+/* --- OUTRAS SECÇÕES --- */
+
+/* Ajustes na secção "Sobre o curso" */
+#o-curso { background-color: #fff; }
+.advantages-grid div {
+    border-left-color: var(--cor-principal-curso);
+}
+
+/* Cards de Módulos */
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+.feature-card h3 { color: var(--cor-principal-curso); }
+
+/* Secção de Preços */
+#preco { text-align: center; }
 .price-box {
     background-color: #fff;
     padding: 20px 30px;
@@ -122,59 +157,52 @@ section p {
     margin: 30px auto;
     border: 1px solid #eee;
 }
-.price-original {
-    font-size: 1.2em;
-    color: #888;
-    text-decoration: line-through;
+.price-original { font-size: 1.2em; color: #888; }
+.price-promo { font-size: 1.5em; color: #333; }
+.price-final { font-size: 3em; font-weight: 700; color: var(--cor-principal-curso); }
+.reacenda-chama { color: var(--cor-principal-curso); font-weight: 700; font-family: var(--fonte-titulos); }
+
+/* Depoimentos */
+#depoimentos { background-color: var(--cor-fundo-claro); }
+.depoimento-grid-video {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
 }
-.price-promo {
-    font-size: 1.5em;
-    color: #333;
+.depoimento-card-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.price-final {
-    font-size: 3em;
-    font-weight: 700;
-    color: var(--cor-principal-curso);
-}
-.reacenda-chama {
-    color: var(--cor-principal-curso);
-    font-weight: 700;
+.depoimento-card-video iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
 }
 
-
-/* --- MÓDULOS E CARDS --- */
-.feature-card {
-    background-color: #fff;
-    border: 1px solid #eee;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    color: var(--cor-texto-escuro);
-}
-
-.feature-card h3 {
-    color: var(--cor-principal-curso);
-}
-
-.feature-card p {
-    color: #555;
-}
-
-
-/* --- GARANTIA E INSTRUTORA --- */
-.garantia-img {
-    max-width: 250px;
-    height: auto;
-    margin-bottom: 30px;
-}
-
+/* Instrutora */
 #instrutora {
     background-image: url('https://static-media.hotmart.com/y8y8Zv9RSDdb-a4a5VS8XRBlPT0=/filters:quality(100)/klickart-prod/uploads/media/file/5519848/bg3.jpg');
 }
 
-/* Fundos das secções */
-.section-light { background-color: var(--cor-fundo-claro); }
-#o-curso, #depoimentos { background-color: #fff; }
+/* Garantia */
+#garantia { text-align: center; }
+.garantia-img {
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 30px;
+}
 
 /* Link do logo para a página inicial */
 header .logo-link {
     text-decoration: none;
+}
+
+
+/* --- AJUSTES PARA MOBILE --- */
+@media (max-width: 768px) {
+    .hero-title-curso { font-size: 3.5em; }
+    .hero-subtitle-curso { font-size: 1.2em; }
 }
