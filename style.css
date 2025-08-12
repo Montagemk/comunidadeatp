@@ -31,7 +31,6 @@ body {
 /* Header */
 header {
     
-    background-color: rgba(26, 26, 26, 0.5);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow: none;
@@ -42,6 +41,7 @@ header {
     top: 0;
     z-index: 1000;
 }
+
 
 header .container {
     display: flex;
@@ -72,11 +72,11 @@ header .container {
 
 #main-nav ul li a {
     color: #fff;
-    text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease, transform 0.2s ease;
     position: relative;
     padding-bottom: 5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 #main-nav ul li a::after {
