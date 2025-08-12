@@ -3,8 +3,9 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
     scroll-behavior: smooth; /* Para rolagem suave do JavaScript */
+    overflow-x: hidden; /* CORREÇÃO: Impede a rolagem horizontal no mobile */
 }
 
 /* Importação de Fontes do Google Fonts */
@@ -18,7 +19,6 @@ body {
     background-color: #f0f2f5;
     color: #333;
     line-height: 1.6;
-    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
 .container {
@@ -42,12 +42,11 @@ header {
     z-index: 1000;
 }
 
-
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Permite quebrar linha em mobile */
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -231,137 +230,40 @@ header .container {
     align-self: flex-start;
     border-bottom-left-radius: 5px;
 }
-/* Estilo para links que devem parecer botões dentro do chat */
 .chat-button-link {
-    display: inline-block;
-    padding: 12px 20px;
-    background-color: #007bff;
-    color: white !important;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    margin-top: 10px;
-    text-align: center;
-    transition: background-color 0.2s;
+    display: inline-block; padding: 12px 20px; background-color: #007bff; color: white !important; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 10px; text-align: center; transition: background-color 0.2s;
 }
-.chat-button-link:hover {
-    background-color: #0056b3;
-    color: white !important;
-}
-
-.quick-replies {
-    padding: 10px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    border-top: 1px solid #eee;
-    background-color: #f9f9f9;
-}
-
-.quick-reply-btn {
-    background-color: #fff;
-    color: #007bff;
-    border: 1px solid #007bff;
-    border-radius: 20px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.quick-reply-btn:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
-/* NOVO: Estilo específico para o botão de WhatsApp */
-.quick-reply-btn.whatsapp {
-    background-color: #25D366;
-    border-color: #25D366;
-    color: white;
-}
-
-.quick-reply-btn.whatsapp:hover {
-    background-color: #1EBE57;
-    border-color: #1EBE57;
-}
-
-.dynamic-choices {
-    padding: 0 15px 10px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: flex-start;
-}
-
-.choice-btn {
-    background-color: #fff;
-    color: #007bff;
-    border: 1px solid #007bff;
-    border-radius: 20px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.choice-btn:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.chat-input {
-    display: flex;
-    border-top: 1px solid #ccc;
-    background-color: white;
-    flex-shrink: 0;
-}
-#chat-input-field {
-    flex-grow: 1;
-    border: none;
-    padding: 15px;
-    font-size: 14px;
-    outline: none;
-}
-#chat-send-button {
-    background-color: #00e676;
-    color: #1a1a1a;
-    border: none;
-    padding: 15px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-#chat-send-button:hover {
-    background-color: #00b35c;
-}
+.chat-button-link:hover { background-color: #0056b3; color: white !important; }
+.quick-replies { padding: 10px 15px; display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid #eee; background-color: #f9f9f9; }
+.quick-reply-btn { background-color: #fff; color: #007bff; border: 1px solid #007bff; border-radius: 20px; padding: 8px 15px; font-size: 14px; font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.2s; }
+.quick-reply-btn:hover { background-color: #007bff; color: #fff; }
+.quick-reply-btn.whatsapp { background-color: #25D366; border-color: #25D366; color: white; }
+.quick-reply-btn.whatsapp:hover { background-color: #1EBE57; border-color: #1EBE57; }
+.dynamic-choices { padding: 0 15px 10px 15px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
+.choice-btn { background-color: #fff; color: #007bff; border: 1px solid #007bff; border-radius: 20px; padding: 8px 15px; font-size: 14px; font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.2s; }
+.choice-btn:hover { background-color: #007bff; color: #fff; }
+.chat-input { display: flex; border-top: 1px solid #ccc; background-color: white; flex-shrink: 0; }
+#chat-input-field { flex-grow: 1; border: none; padding: 15px; font-size: 14px; outline: none; }
+#chat-send-button { background-color: #00e676; color: #1a1a1a; border: none; padding: 15px 20px; cursor: pointer; font-size: 14px; transition: background-color 0.3s ease; }
+#chat-send-button:hover { background-color: #00b35c; }
 
 /* Botão de Menu Mobile (Hamburger) */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    position: relative;
-    z-index: 1001;
-}
-.hamburger {
-    display: block;
-    width: 30px;
-    height: 3px;
-    background-color: #00e676;
-    margin: 6px 0;
-    transition: all 0.3s ease-in-out;
-}
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 10px; position: relative; z-index: 1001; }
+.hamburger { display: block; width: 30px; height: 3px; background-color: #00e676; margin: 6px 0; transition: all 0.3s ease-in-out; }
 .menu-toggle.active .hamburger:nth-child(1) { transform: translateY(9px) rotate(45deg); }
 .menu-toggle.active .hamburger:nth-child(2) { opacity: 0; }
 .menu-toggle.active .hamburger:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
 /* Seções Gerais */
-section { padding: 80px 0; text-align: center; position: relative; }
+/* ESTA É A CORREÇÃO PRINCIPAL: A regra de padding agora ignora as seções de topo */
+section:not(.hero-section):not(.hero-section-curso) {
+    padding: 80px 0;
+}
+section { 
+    text-align: center; 
+    position: relative; 
+}
+
 .section-title { font-size: 2.8em; margin-bottom: 25px; color: #1a1a1a; font-weight: 700; }
 .section-subtitle { font-size: 1.2em; margin-bottom: 40px; color: #555; }
 .section-dark { background-color: #1a1a1a; color: #f0f2f5; }
@@ -372,9 +274,18 @@ section { padding: 80px 0; text-align: center; position: relative; }
 .content-above-overlay { position: relative; z-index: 2; }
 
 /* Seção Hero e Botões */
-.hero-section { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); overflow: hidden; }
+.hero-section { position: relative; min-height: 600px; display: flex; align-items: center; justify-content: center; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); overflow: hidden; }
 .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1; filter: brightness(0.7); animation: fadeIn 2s ease-out; }
-.hero-section .container { position: relative; z-index: 2; text-align: center; padding-top: 120px; }
+
+/* Garante que o CONTEÚDO do hero tenha espaçamento, mas não a seção inteira */
+.hero-section .container { 
+    position: relative; 
+    z-index: 2; 
+    text-align: center; 
+    padding-top: 120px; 
+    padding-bottom: 60px;
+}
+
 .hero-section h2 { font-size: 3.5em; margin-bottom: 15px; line-height: 1.2; font-weight: 700; color: #fff; text-transform: uppercase; }
 .hero-section h3 { font-size: 2em; margin-bottom: 20px; font-weight: 600; color: #00e676; }
 .hero-section p { font-size: 1.3em; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: 400; }
@@ -451,9 +362,14 @@ body.menu-open {
     }
 
     .hero-section {
-        height: auto;
-        padding: 80px 0;
+        min-height: auto;
+        padding-top: 80px;
+        padding-bottom: 80px;
     }
+    .hero-section .container {
+        padding-top: 0; /* Remove padding extra no mobile */
+    }
+
     .hero-section h2 {
         font-size: 2.2em;
     }
@@ -507,6 +423,3 @@ body.menu-open {
         margin-bottom: 20px;
     }
 }
-
-main > section:first-of-type {
-    padding-top: 0;
