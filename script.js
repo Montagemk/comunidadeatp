@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Configurações da API ---
     const API_URL = "https://atpchatbot.onrender.com/webhook"; 
-    const API_KEY = "sua-chave-secreta-deve-ser-trocada"; // Use a mesma chave que está no seu routes.py
+    const API_KEY = "_k8_fTbg98bu-tH_z7PjG"; // Use a mesma chave que está no seu routes.py
 
     // --- Lógica de Abertura e Fecho do Chat ---
     chatbotButton.addEventListener('click', () => {
