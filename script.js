@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Lógica do Menu Responsivo (Toggle) ---
+    // --- LÓGICA DO MENU RESPONSIVO (PRESERVADA) ---
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.getElementById('main-nav');
     const body = document.body;
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Lógica de Rolagem Suave (Smooth Scroll) ---
+    // --- LÓGICA DE ROLAGEM SUAVE (PRESERVADA) ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Lógica de Ajuste Responsivo do Vídeo ---
+    // --- LÓGICA DE AJUSTE RESPONSIVO DO VÍDEO (PRESERVADA) ---
     const videoElement = document.querySelector('#video-marketing .responsive-video');
     const videoWrapper = document.querySelector('#video-marketing .video-wrapper');
 
@@ -73,186 +73,173 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- LÓGICA COMPLETA DO CHATBOT ---
-    const toggleButton = document.querySelector('.chatbot-button'); 
+    // ######################################################################
+    // ### INÍCIO DA NOVA LÓGICA DO CHATBOT (SUBSTITUIÇÃO COMPLETA) ###
+    // ######################################################################
+
+    // --- Seletores dos Elementos do DOM do Chatbot ---
+    const chatbotButton = document.querySelector('.chatbot-button');
     const chatbotWindow = document.querySelector('.chatbot-window');
-    const closeButton = document.querySelector('.close-chat-button');
-    const sendButton = document.getElementById('chat-send-button');
-    const inputField = document.getElementById('chat-input-field');
+    const closeChatButton = document.querySelector('.close-chat-button');
     const chatMessages = document.querySelector('.chat-messages');
+    const inputField = document.getElementById('chat-input-field');
+    const sendButton = document.getElementById('chat-send-button');
     const quickRepliesContainer = document.querySelector('.quick-replies');
 
-    // **CONFIGURAÇÕES DE COMUNICAÇÃO**
-    const CHATBOT_URL = 'https://atpchatbot.onrender.com/webhook';
-    const API_KEY = '_k8_fTbg98bu-tH_z7PjG'; // Lembre-se de usar a sua chave real aqui
+    // --- Configurações da API ---
+    const API_URL = "https://atpchatbot.onrender.com/webhook"; 
+    const API_KEY = "sua-chave-secreta-deve-ser-trocada"; // Use a mesma chave que está no seu routes.py
 
-    function getOrSetSenderId() {
-        let senderId = localStorage.getItem('chatbotSenderId');
-        if (!senderId) {
-            senderId = 'web_user_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-            localStorage.setItem('chatbotSenderId', senderId);
-        }
-        return senderId;
-    }
-    
-    const uniqueSenderId = getOrSetSenderId();
-
-    function openChat() {
+    // --- Lógica de Abertura e Fecho do Chat ---
+    chatbotButton.addEventListener('click', () => {
         chatbotWindow.classList.remove('hidden');
-        toggleButton.classList.add('hidden');
-        if (quickRepliesContainer) {
-            quickRepliesContainer.style.display = 'flex';
+        chatbotButton.classList.add('hidden');
+        // Se a conversa estiver vazia, envia uma mensagem inicial para obter as boas-vindas.
+        if (chatMessages.children.length === 0) {
+            sendMessage('oi', true); // `true` impede que 'oi' apareça na tela
         }
-    }
+    });
 
-    function closeChat() {
+    closeChatButton.addEventListener('click', () => {
         chatbotWindow.classList.add('hidden');
-        toggleButton.classList.remove('hidden');
-    }
+        chatbotButton.classList.remove('hidden');
+    });
 
-    if (toggleButton) {
-        toggleButton.addEventListener('click', openChat);
+    // --- Lógica de Envio de Mensagens (Input e Botão Enviar) ---
+    sendButton.addEventListener('click', handleTypedMessage);
+    inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleTypedMessage();
+        }
+    });
+    
+    function handleTypedMessage() {
+        const message = inputField.value.trim();
+        if (message) {
+            displayMessage(message, 'user-message');
+            sendMessage(message);
+            inputField.value = '';
+        }
     }
     
-    if (closeButton) {
-        closeButton.addEventListener('click', closeChat);
-    }
+    // --- FUNÇÕES PRINCIPAIS DO CHAT ---
 
-    if (sendButton && inputField) {
-        sendButton.addEventListener('click', () => handleUserMessage(inputField.value));
-        inputField.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                handleUserMessage(inputField.value);
-            }
-        });
-    }
-
-    // --- LÓGICA ATUALIZADA PARA OS BOTÕES DE RESPOSTA RÁPIDA ---
-    if (quickRepliesContainer) {
-        quickRepliesContainer.addEventListener('click', function(event) {
-            const button = event.target.closest('.quick-reply-btn');
-            if (button) {
-                // VERIFICA SE O BOTÃO É O DE WHATSAPP
-                if (button.classList.contains('whatsapp')) {
-                    const phoneNumber = '5512996443780';
-                    const message = encodeURIComponent('Quero saber mais');
-                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-                    window.open(whatsappUrl, '_blank'); // Abre o WhatsApp em uma nova aba
-                } else {
-                    // LÓGICA ANTIGA PARA OS OUTROS BOTÕES
-                    const message = button.getAttribute('data-message');
-                    handleUserMessage(message);
-                }
-            }
-        });
-    }
-    // --- FIM DA ATUALIZAÇÃO ---
-
-    function handleUserMessage(messageText) {
-        const trimmedMessage = messageText.trim();
-        if (trimmedMessage === '') return;
-
-        displayMessage(trimmedMessage, 'user-message');
-        if (inputField) inputField.value = '';
-
-        if (quickRepliesContainer) {
-            quickRepliesContainer.style.display = 'none';
-        }
-        
-        removeDynamicChoices();
-        sendMessageToAI(trimmedMessage);
-    }
-
-    function sendMessageToAI(messageText) {
-        fetch(CHATBOT_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-Key': API_KEY
-            },
-            body: JSON.stringify({
-                sender: uniqueSenderId,
-                message: messageText
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw new Error(err.error || 'Erro na rede'); });
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Lógica para lidar com múltiplas respostas
-            if (Array.isArray(data)) {
-                data.forEach((msg, index) => {
-                    setTimeout(() => {
-                        displayMessage(msg.text, 'bot-message');
-                    }, index * 1200); // Adiciona um pequeno atraso entre as mensagens
-                });
-            } else if (data && data.text) { // Fallback para resposta única
-                 displayMessage(data.text, 'bot-message');
-            } else {
-                displayMessage('Desculpe, recebi uma resposta inesperada.', 'bot-message');
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao comunicar com o chatbot:', error);
-            displayMessage(`Desculpe, ocorreu um erro: ${error.message}.`, 'bot-message');
-        });
-    }
-
-    function displayMessage(text, type) {
-        if (!chatMessages) return;
-
-        removeDynamicChoices(); // Remove botões antigos antes de mostrar a nova mensagem
-
+    function displayMessage(message, type) {
         const messageElement = document.createElement('div');
-        messageElement.classList.add('message', type);
-
-        const choiceRegex = /\[choice:([^|\]]+)\|?([^\]]*)\]/g;
-        const buttonRegex = /\[botão:(.*?)\|(https?:\/\/[^\s\]]+)\]/g;
-        const urlRegex = /(https?:\/\/[^\s.,?!)]+)/g;
-
-        let mainText = text;
-        let choices = [];
-
-        if (type === 'bot-message') {
-            mainText = text.replace(choiceRegex, (match, choiceText, value) => {
-                choices.push({ text: choiceText, value: value || choiceText });
-                return '';
-            }).trim();
-        }
-
-        let processedHtml = mainText;
-        if (buttonRegex.test(processedHtml)) {
-            processedHtml = processedHtml.replace(buttonRegex, '<a href="$2" target="_blank" rel="noopener noreferrer" class="chat-button-link">$1</a>');
-        } else {
-            processedHtml = processedHtml.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-        }
-        
-        messageElement.innerHTML = processedHtml;
+        messageElement.className = `message ${type}`; // Nomes de classe simplificados
+        messageElement.textContent = message;
         chatMessages.appendChild(messageElement);
-
-        if (choices.length > 0) {
-            const choicesContainer = document.createElement('div');
-            choicesContainer.classList.add('dynamic-choices');
-            choices.forEach(choice => {
-                const choiceButton = document.createElement('button');
-                choiceButton.classList.add('choice-btn');
-                choiceButton.textContent = choice.text;
-                choiceButton.addEventListener('click', () => {
-                    handleUserMessage(choice.value);
-                });
-                choicesContainer.appendChild(choiceButton);
-            });
-            chatMessages.appendChild(choicesContainer);
-        }
-
+        // Rola para a mensagem mais recente
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
-    function removeDynamicChoices() {
-        const existingChoices = document.querySelectorAll('.dynamic-choices');
-        existingChoices.forEach(container => container.remove());
+
+    function clearQuickReplies() {
+        if (quickRepliesContainer) {
+            quickRepliesContainer.innerHTML = '';
+        }
     }
+
+    function displayButtons(buttons) {
+        clearQuickReplies();
+        if (!buttons || buttons.length === 0 || !quickRepliesContainer) return;
+
+        buttons.forEach(buttonInfo => {
+            const buttonElement = document.createElement('button');
+            buttonElement.className = 'quick-reply-btn';
+            
+            // Adiciona classe especial para o botão WhatsApp para estilização
+            if (buttonInfo.label.toLowerCase() === 'whatsapp') {
+                buttonElement.classList.add('whatsapp');
+            }
+
+            buttonElement.textContent = buttonInfo.label;
+            
+            buttonElement.addEventListener('click', () => {
+                const value = buttonInfo.value;
+                
+                // LÓGICA PARA LINKS
+                if (value.startsWith('link:')) {
+                    const url = value.substring(5);
+                    window.open(url, '_blank');
+                    return; 
+                }
+                
+                // LÓGICA PARA WHATSAPP
+                if (value === "Quero falar no WhatsApp") {
+                    const phoneNumber = '5512996443780';
+                    const message = encodeURIComponent('Olá, vim pelo site e gostaria de falar com um atendente.');
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+                    window.open(whatsappUrl, '_blank');
+                    return;
+                }
+                
+                // Para botões normais
+                displayMessage(buttonInfo.label, 'user-message');
+                sendMessage(value);
+            });
+
+            quickRepliesContainer.appendChild(buttonElement);
+        });
+    }
+
+    function getVisitorId() {
+        let visitorId = localStorage.getItem('chatbotVisitorId');
+        if (!visitorId) {
+            visitorId = 'web_user_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+            localStorage.setItem('chatbotVisitorId', visitorId);
+        }
+        return visitorId;
+    }
+
+    async function sendMessage(messageText, isInitial = false) {
+        clearQuickReplies();
+
+        // Mostra um indicador de "a escrever..."
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'message bot-message typing-indicator';
+        typingIndicator.textContent = '...';
+        if (!isInitial) {
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                },
+                body: JSON.stringify({
+                    sender: getVisitorId(),
+                    message: messageText
+                })
+            });
+
+            if (!response.ok) throw new Error(`Erro na rede: ${response.statusText}`);
+            
+            const responseData = await response.json();
+            
+            // Remove o indicador "..." antes de mostrar a resposta real
+            typingIndicator.remove();
+
+            if (responseData && responseData.length > 0) {
+                const botResponse = responseData[0];
+                displayMessage(botResponse.text, 'bot-message');
+                
+                if (botResponse.buttons && botResponse.buttons.length > 0) {
+                    displayButtons(botResponse.buttons);
+                }
+            }
+
+        } catch (error) {
+            console.error('Erro ao enviar mensagem:', error);
+            typingIndicator.remove(); // Remove o indicador também em caso de erro
+            displayMessage('Desculpe, não consigo me conectar ao servidor agora. Tente mais tarde.', 'bot-message');
+        }
+    }
+
+    // ####################################################################
+    // ### FIM DA NOVA LÓGICA DO CHATBOT ###
+    // ####################################################################
 });
