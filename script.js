@@ -127,16 +127,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // --- LÓGICA ATUALIZADA PARA OS BOTÕES DE RESPOSTA RÁPIDA ---
     if (quickRepliesContainer) {
         quickRepliesContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('quick-reply-btn')) {
-                const message = event.target.getAttribute('data-message');
-                handleUserMessage(message);
+            const button = event.target.closest('.quick-reply-btn');
+            if (button) {
+                // VERIFICA SE O BOTÃO É O DE WHATSAPP
+                if (button.classList.contains('whatsapp')) {
+                    const phoneNumber = '5512996443780';
+                    const message = encodeURIComponent('Quero saber mais');
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+                    window.open(whatsappUrl, '_blank'); // Abre o WhatsApp em uma nova aba
+                } else {
+                    // LÓGICA ANTIGA PARA OS OUTROS BOTÕES
+                    const message = button.getAttribute('data-message');
+                    handleUserMessage(message);
+                }
             }
         });
     }
+    // --- FIM DA ATUALIZAÇÃO ---
 
-    // Função central para lidar com o envio de mensagens do usuário
     function handleUserMessage(messageText) {
         const trimmedMessage = messageText.trim();
         if (trimmedMessage === '') return;
@@ -144,15 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
         displayMessage(trimmedMessage, 'user-message');
         if (inputField) inputField.value = '';
 
-        // Esconde os botões de resposta rápida após a primeira interação
         if (quickRepliesContainer) {
             quickRepliesContainer.style.display = 'none';
         }
         
-        // Remove botões de escolha dinâmicos de mensagens anteriores
         removeDynamicChoices();
-
-        // Envia a mensagem para a IA
         sendMessageToAI(trimmedMessage);
     }
 
@@ -175,8 +182,15 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            if (data && data.length > 0 && data[0].text) {
-                displayMessage(data[0].text, 'bot-message');
+            // Lógica para lidar com múltiplas respostas
+            if (Array.isArray(data)) {
+                data.forEach((msg, index) => {
+                    setTimeout(() => {
+                        displayMessage(msg.text, 'bot-message');
+                    }, index * 1200); // Adiciona um pequeno atraso entre as mensagens
+                });
+            } else if (data && data.text) { // Fallback para resposta única
+                 displayMessage(data.text, 'bot-message');
             } else {
                 displayMessage('Desculpe, recebi uma resposta inesperada.', 'bot-message');
             }
@@ -189,26 +203,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayMessage(text, type) {
         if (!chatMessages) return;
+
+        removeDynamicChoices(); // Remove botões antigos antes de mostrar a nova mensagem
+
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
 
-        // Regex para os diferentes formatos
-        const choiceRegex = /\[choice:(.*?)\]/g;
+        const choiceRegex = /\[choice:([^|\]]+)\|?([^\]]*)\]/g;
         const buttonRegex = /\[botão:(.*?)\|(https?:\/\/[^\s\]]+)\]/g;
         const urlRegex = /(https?:\/\/[^\s.,?!)]+)/g;
 
         let mainText = text;
         let choices = [];
 
-        // Extrai os botões de escolha da resposta da IA
         if (type === 'bot-message') {
-            mainText = text.replace(choiceRegex, (match, choiceText) => {
-                choices.push(choiceText);
-                return ''; // Remove o código [choice:...] do texto principal
+            mainText = text.replace(choiceRegex, (match, choiceText, value) => {
+                choices.push({ text: choiceText, value: value || choiceText });
+                return '';
             }).trim();
         }
 
-        // Processa o texto principal para links ou botões de link
         let processedHtml = mainText;
         if (buttonRegex.test(processedHtml)) {
             processedHtml = processedHtml.replace(buttonRegex, '<a href="$2" target="_blank" rel="noopener noreferrer" class="chat-button-link">$1</a>');
@@ -219,16 +233,15 @@ document.addEventListener('DOMContentLoaded', function() {
         messageElement.innerHTML = processedHtml;
         chatMessages.appendChild(messageElement);
 
-        // Se houver botões de escolha, cria e adiciona eles
         if (choices.length > 0) {
             const choicesContainer = document.createElement('div');
             choicesContainer.classList.add('dynamic-choices');
-            choices.forEach(choiceText => {
+            choices.forEach(choice => {
                 const choiceButton = document.createElement('button');
                 choiceButton.classList.add('choice-btn');
-                choiceButton.textContent = choiceText;
+                choiceButton.textContent = choice.text;
                 choiceButton.addEventListener('click', () => {
-                    handleUserMessage(choiceText);
+                    handleUserMessage(choice.value);
                 });
                 choicesContainer.appendChild(choiceButton);
             });
