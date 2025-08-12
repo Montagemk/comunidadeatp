@@ -30,7 +30,7 @@ body {
 
 /* Header */
 header {
-    
+    background-color: transparent; 
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow: none;
