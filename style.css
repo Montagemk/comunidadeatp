@@ -97,10 +97,9 @@ header .container {
 
 /* --- ESTILOS DO CHATBOT --- */
 
-/* ALTERAÇÃO APLICADA AQUI: Define a prioridade de camada para todo o chatbot */
 .chatbot-container {
-    position: relative; /* Necessário para o z-index funcionar corretamente */
-    z-index: 1001; /* Um valor maior que o z-index do header (1000) */
+    position: relative;
+    z-index: 1001;
 }
 
 .chatbot-button {
@@ -272,6 +271,18 @@ header .container {
     color: #fff;
 }
 
+/* NOVO: Estilo específico para o botão de WhatsApp */
+.quick-reply-btn.whatsapp {
+    background-color: #25D366;
+    border-color: #25D366;
+    color: white;
+}
+
+.quick-reply-btn.whatsapp:hover {
+    background-color: #1EBE57;
+    border-color: #1EBE57;
+}
+
 .dynamic-choices {
     padding: 0 15px 10px 15px;
     display: flex;
@@ -322,6 +333,7 @@ header .container {
 #chat-send-button:hover {
     background-color: #00b35c;
 }
+
 /* Botão de Menu Mobile (Hamburger) */
 .menu-toggle {
     display: none;
