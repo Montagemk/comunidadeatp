@@ -55,7 +55,7 @@ section p {
 .hero-section-curso .container {
     position: relative;
     z-index: 2;
-    padding-top: 120px; /* Espaço para o header + margem */
+   
     padding-bottom: 60px;
 }
 
