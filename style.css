@@ -34,7 +34,7 @@ header {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 0px solid rgba(255, 255, 255, 0.1);
     color: #fff;
     padding: 0;
     position: sticky;
@@ -74,7 +74,7 @@ header .container {
     font-weight: 600;
     transition: color 0.3s ease, transform 0.2s ease;
     position: relative;
-    padding-bottom: 5px;
+    padding-bottom: 1px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
@@ -83,7 +83,7 @@ header .container {
     position: absolute;
     width: 0;
     height: 3px;
-    background-color: #00e676;
+    background-color: red;
     left: 0;
     bottom: 0;
     transition: width 0.3s ease;
