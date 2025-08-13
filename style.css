@@ -371,7 +371,7 @@ body.menu-open {
         padding-bottom: 80px;
     }
     .hero-section .container {
-        padding-top: 100; /* Remove padding extra no mobile */
+        padding-top: 60; /* Remove padding extra no mobile */
     }
 
     .hero-section h2 {
