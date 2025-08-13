@@ -289,7 +289,7 @@ section {
     padding-bottom: 60px;
 }
 
-.hero-section h2 { font-size: 3.5em; margin-bottom: 15px; margin-top: 10px; line-height: 1.2; font-weight: 700; color: #fff; text-transform: uppercase; }
+.hero-section h2 { font-size: 3.5em; margin-bottom: 15px; line-height: 1.2; font-weight: 700; color: #fff; text-transform: uppercase; }
 .hero-section h3 { font-size: 2em; margin-bottom: 20px; font-weight: 600; color: #00e676; }
 .hero-section p { font-size: 1.3em; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: 400; }
 .hero-section p:last-of-type { margin-bottom: 40px; }
@@ -371,7 +371,7 @@ body.menu-open {
         padding-bottom: 80px;
     }
     .hero-section .container {
-        padding-top: 0; /* Remove padding extra no mobile */
+        padding-top: 100; /* Remove padding extra no mobile */
     }
 
     .hero-section h2 {
