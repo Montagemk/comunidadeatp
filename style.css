@@ -25,7 +25,7 @@ body {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 1px 0;
 }
 
 /* Header */
@@ -39,7 +39,7 @@ header {
     padding: 0;
     position: sticky;
     top: 0;
-    z-index: 200;
+    z-index: 1;
 }
 
 header .container {
