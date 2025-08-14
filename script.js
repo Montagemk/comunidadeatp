@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // LÓGICA PARA WHATSAPP
                 if (value === "Quero falar no WhatsApp") {
-                    const phoneNumber = '5512996443780';
+                    const phoneNumber = '5512983099115';
                     const message = encodeURIComponent('Olá, vim pelo site e gostaria de falar com um atendente.');
                     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
                     window.open(whatsappUrl, '_blank');
