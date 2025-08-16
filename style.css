@@ -259,7 +259,7 @@ header .container {
 /* Seções Gerais */
 /* ESTA É A CORREÇÃO PRINCIPAL: A regra de padding agora ignora as seções de topo */
 section:not(.hero-section):not(.hero-section-curso) {
-    padding: 1px 0;
+    padding: 1px 0; padding-bottom: 40px;
 }
 section { 
     text-align: center; 
