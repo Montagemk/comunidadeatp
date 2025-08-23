@@ -302,12 +302,32 @@ section {
 
 /* Outras seções */
 .responsive-video {
-    width: 100%;
+    width: 100%; /*garnte que fica em 100 da proporção do video em telas grandes*/
+    max-width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9; /* Mantém a proporção 16:9 (widescreen) */
     border: none; /* Remove a borda padrão do iframe */
 }
-#video-marketing .video-wrapper { position: relative; width: 100%; max-width: 900px; margin: 5px auto; background: #000; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); min-height: 200px; transition: height 0.3s ease; }
-#video-marketing .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: contain; }
+
+.video-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 800px; /* Defina a largura máxima que o vídeo deve ter em telas grandes */
+  margin: 20px auto; /* Centraliza o contêiner do vídeo na seção */
+  padding-top: 56.25%; /* Proporção de 16:9 (resultado de 9 / 16 * 100) */
+}
+
+/* 2. Faça o iframe preencher totalmente o contêiner */
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove a borda */
+}
+
 .advantages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; margin-bottom: 40px; text-align: left; }
 .advantages-grid div { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #00e676; }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px;  margin-bottom: 40px; }
